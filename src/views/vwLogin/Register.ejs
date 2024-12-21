@@ -1,127 +1,98 @@
-<!DOCTYPE html>
-<html lang="vi">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Đăng ký tài khoản</title>
-		<!-- Bootstrap 4.6 CSS -->
-		<link
-			rel="stylesheet"
-			href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-			integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
-			crossorigin="anonymous"
-		/>
-		<!-- Bootstrap Icons -->
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-	</head>
-	<body>
-		<!-- Container chính -->
-		<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh">
-			<div class="col-md-6 col-lg-6 shadow p-4 rounded">
-				<div class="text-center mb-4">
-					<h3 class="font-weight-bold">LOGO</h3>
-					<h5 class="font-weight-bold">Đăng ký tài khoản</h5>
-				</div>
-
-				<!-- Đăng ký qua tài khoản mạng xã hội -->
-				<div class="text-center mb-3">
-					<a href="#">
-						<img
-							src="https://banner2.cleanpng.com/20240216/jqb/transparent-google-logo-google-logo-blue-circle-with-g-1710875609249.webp"
-							alt="Google"
-							class="rounded-circle mx-2"
-							width="40"
-							height="40"
-						/>
-					</a>
-					<a href="#">
-						<img
-							src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/480px-Facebook_Logo_%282019%29.png"
-							alt="Facebook"
-							class="rounded-circle mx-2"
-							width="40"
-							height="40"
-						/>
-					</a>
-					<a href="#">
-						<img
-							src="https://cdn4.iconfinder.com/data/icons/social-media-icons-the-circle-set/48/twitter_circle-512.png"
-							alt="Twitter"
-							class="rounded-circle mx-2"
-							width="40"
-							height="40"
-						/>
-					</a>
-					<a href="#">
-						<img src="https://cdn-icons-png.flaticon.com/256/25/25231.png" alt="GitHub" class="rounded-circle mx-2" width="40" height="40" />
-					</a>
-				</div>
-
-				<p class="text-center text-muted">Hoặc</p>
-
-				<!-- Form đăng ký -->
-				<!-- Hiển thị lỗi -->
-				<% if (typeof errors !== 'undefined' && errors.length > 0) { %>
-				<ul class="text-danger">
-					<% errors.forEach(error => { %>
-					<li><%= error.msg %></li>
-					<% }) %>
-				</ul>
-				<% } %>
-				<form action="" method="POST" autocomplete="on">
-					<div class="input-group mb-3">
-						<div class="input-group-prepend">
-							<label class="input-group-text" for="username"><i class="bi bi-person-fill"></i></label>
-						</div>
-						<input type="text" class="form-control" id="username" name="username" placeholder="Username" required />
-					</div>
-
-					<div class="input-group mb-3">
-						<div class="input-group-prepend">
-							<label class="input-group-text" for="fullname"><i class="bi bi-alphabet"></i></label>
-						</div>
-						<input type="text" class="form-control" id="fullname" name="fullname" placeholder="Full name" required />
-					</div>
-
-					<div class="input-group mb-3">
-						<div class="input-group-prepend">
-							<label class="input-group-text" for="email"><i class="bi bi-envelope-fill"></i></label>
-						</div>
-						<input type="email" class="form-control" id="email" name="email" placeholder="Email" required autocomplete="email" />
-					</div>
-
-					<div class="input-group mb-3">
-						<div class="input-group-prepend">
-							<label class="input-group-text" for="password"><i class="bi bi-key-fill"></i></label>
-						</div>
-						<input type="password" class="form-control" id="password" name="password" placeholder="Mật khẩu" required />
-					</div>
-
-					<div class="input-group mb-3">
-						<div class="input-group-prepend">
-							<label class="input-group-text" for="password2"><i class="bi bi-arrow-repeat"></i></label>
-						</div>
-						<input type="password" class="form-control" id="password2" name="password2" placeholder="Xác nhận mật khẩu" required />
-					</div>
-
-					<div class="input-group mb-3">
-						<div class="input-group-prepend">
-							<label class="input-group-text" for="dob"><i class="bi bi-calendar-event"></i></label>
-						</div>
-						<input type="date" timezome="" name="dob" id="dob" class="form-control" />
-					</div>
-					<button type="submit" class="btn btn-secondary btn-block font-weight-bold">ĐĂNG KÝ</button>
-				</form>
-
-				<!-- Đăng nhập link -->
-				<div class="text-center mt-3">
-					<small class="text-muted">Đã có tài khoản? <a href="#" class="font-weight-bold">Đăng nhập ngay</a></small>
-				</div>
-			</div>
+<!-- Container chính -->
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh">
+	<div class="col-md-6 col-lg-6 shadow p-4 rounded">
+		<div class="text-center mb-4">
+			<h3 class="font-weight-bold">LOGO</h3>
+			<h5 class="font-weight-bold">Đăng ký tài khoản</h5>
 		</div>
 
-		<!-- Bootstrap & jQuery -->
-		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.min.js"></script>
-	</body>
-</html>
+		<!-- Đăng ký qua tài khoản mạng xã hội -->
+		<div class="text-center mb-3">
+			<a href="#">
+				<img
+					src="https://banner2.cleanpng.com/20240216/jqb/transparent-google-logo-google-logo-blue-circle-with-g-1710875609249.webp"
+					alt="Google"
+					class="rounded-circle mx-2"
+					width="40"
+					height="40"
+				/>
+			</a>
+			<a href="#">
+				<img
+					src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/480px-Facebook_Logo_%282019%29.png"
+					alt="Facebook"
+					class="rounded-circle mx-2"
+					width="40"
+					height="40"
+				/>
+			</a>
+			<a href="#">
+				<img src="https://cdn4.iconfinder.com/data/icons/social-media-icons-the-circle-set/48/twitter_circle-512.png" alt="Twitter" class="rounded-circle mx-2" width="40" height="40" />
+			</a>
+			<a href="#">
+				<img src="https://cdn-icons-png.flaticon.com/256/25/25231.png" alt="GitHub" class="rounded-circle mx-2" width="40" height="40" />
+			</a>
+		</div>
+
+		<p class="text-center text-muted">Hoặc</p>
+
+		<!-- Form đăng ký -->
+		<!-- Hiển thị lỗi -->
+		<% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+		<ul class="text-danger">
+			<% errors.forEach(error => { %>
+			<li><%= error.msg %></li>
+			<% }) %>
+		</ul>
+		<% } %>
+		<form action="" method="POST" autocomplete="on">
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<label class="input-group-text" for="username"><i class="bi bi-person-fill"></i></label>
+				</div>
+				<input type="text" class="form-control" id="username" name="username" placeholder="Username" required />
+			</div>
+
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<label class="input-group-text" for="fullname"><i class="bi bi-alphabet"></i></label>
+				</div>
+				<input type="text" class="form-control" id="fullname" name="fullname" placeholder="Full name" required />
+			</div>
+
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<label class="input-group-text" for="email"><i class="bi bi-envelope-fill"></i></label>
+				</div>
+				<input type="email" class="form-control" id="email" name="email" placeholder="Email" required autocomplete="email" />
+			</div>
+
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<label class="input-group-text" for="password"><i class="bi bi-key-fill"></i></label>
+				</div>
+				<input type="password" class="form-control" id="password" name="password" placeholder="Mật khẩu" required />
+			</div>
+
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<label class="input-group-text" for="password2"><i class="bi bi-arrow-repeat"></i></label>
+				</div>
+				<input type="password" class="form-control" id="password2" name="password2" placeholder="Xác nhận mật khẩu" required />
+			</div>
+
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<label class="input-group-text" for="dob"><i class="bi bi-calendar-event"></i></label>
+				</div>
+				<input type="date" timezome="" name="dob" id="dob" class="form-control" />
+			</div>
+			<button type="submit" class="btn btn-secondary btn-block font-weight-bold">ĐĂNG KÝ</button>
+		</form>
+
+		<!-- Đăng nhập link -->
+		<div class="text-center mt-3">
+			<small class="text-muted">Đã có tài khoản? <a href="#" class="font-weight-bold">Đăng nhập ngay</a></small>
+		</div>
+	</div>
+</div>

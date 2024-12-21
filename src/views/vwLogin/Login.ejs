@@ -1,96 +1,73 @@
-<!DOCTYPE html>
-<html lang="vi">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Trang Đăng Nhập</title>
-		<!-- Bootstrap 4.6 -->
-		<link
-			rel="stylesheet"
-			href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-			integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
-			crossorigin="anonymous"
-		/>
-	</head>
-	<body class="bg-light">
-		<div class="container">
-			<div class="row justify-content-center align-items-center vh-100">
-				<div class="col-md-5 bg-white p-4 rounded shadow-sm">
-					<!-- Logo và Tiêu đề -->
-					<div class="text-center mb-4">
-						<h3><strong>LOGO</strong></h3>
-						<h5><strong>Đăng nhập</strong></h5>
-					</div>
+<div class="container bg-light">
+	<div class="row justify-content-center align-items-center vh-100">
+		<div class="col-md-5 bg-white p-4 rounded shadow-sm">
+			<!-- Logo và Tiêu đề -->
+			<div class="text-center mb-4">
+				<h3><strong>LOGO</strong></h3>
+				<h5><strong>Đăng nhập</strong></h5>
+			</div>
 
-					<!-- Nút đăng nhập bằng mạng xã hội -->
-					<div class="text-center mb-3">
-						<a href="#">
-							<img
-								src="https://banner2.cleanpng.com/20240216/jqb/transparent-google-logo-google-logo-blue-circle-with-g-1710875609249.webp"
-								alt="Google"
-								class="rounded-circle mx-2"
-								width="40"
-								height="40"
-							/>
-						</a>
-						<a href="#">
-							<img
-								src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/480px-Facebook_Logo_%282019%29.png"
-								alt="Facebook"
-								class="rounded-circle mx-2"
-								width="40"
-								height="40"
-							/>
-						</a>
-						<a href="#">
-							<img
-								src="https://cdn4.iconfinder.com/data/icons/social-media-icons-the-circle-set/48/twitter_circle-512.png"
-								alt="Twitter"
-								class="rounded-circle mx-2"
-								width="40"
-								height="40"
-							/>
-						</a>
-						<a href="#">
-							<img src="https://cdn-icons-png.flaticon.com/256/25/25231.png" alt="GitHub" class="rounded-circle mx-2" width="40" height="40" />
-						</a>
-					</div>
+			<!-- Nút đăng nhập bằng mạng xã hội -->
+			<div class="text-center mb-3">
+				<a href="#">
+					<img
+						src="https://banner2.cleanpng.com/20240216/jqb/transparent-google-logo-google-logo-blue-circle-with-g-1710875609249.webp"
+						alt="Google"
+						class="rounded-circle mx-2"
+						width="40"
+						height="40"
+					/>
+				</a>
+				<a href="#">
+					<img
+						src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/480px-Facebook_Logo_%282019%29.png"
+						alt="Facebook"
+						class="rounded-circle mx-2"
+						width="40"
+						height="40"
+					/>
+				</a>
+				<a href="#">
+					<img src="https://cdn4.iconfinder.com/data/icons/social-media-icons-the-circle-set/48/twitter_circle-512.png" alt="Twitter" class="rounded-circle mx-2" width="40" height="40" />
+				</a>
+				<a href="#">
+					<img src="https://cdn-icons-png.flaticon.com/256/25/25231.png" alt="GitHub" class="rounded-circle mx-2" width="40" height="40" />
+				</a>
+			</div>
 
-					<p class="text-center text-muted">Hoặc</p>
-					<% if (typeof errors !== 'undefined' && errors.length > 0) { %>
-					<ul class="text-danger">
-						<% errors.forEach(error => { %>
-						<li><%= error.msg %></li>
-						<% }) %>
-					</ul>
-					<% } %>
-					<!-- Form đăng nhập -->
-					<form id="login-form" action="/login" method="POST">
-						<div class="form-group">
-							<label for="email">Email/Username</label>
-							<input class="form-control" id="email" name="email" placeholder="Nhập email" required />
-							<div class="invalid-feedback">Vui lòng nhập địa chỉ email hợp lệ.</div>
-						</div>
-						<div class="form-group">
-							<label for="password">Mật khẩu</label>
-							<input type="password" class="form-control" id="password" name="password" placeholder="Nhập mật khẩu" required autocomplete="current-password" />
-							<div class="invalid-feedback">Vui lòng nhập mật khẩu hợp lệ.</div>
-						</div>
-						<div class="d-flex justify-content-end">
-							<a href="#" class="small">Quên mật khẩu?</a>
-						</div>
-						<button type="submit" class="btn btn-dark btn-block mt-3">ĐĂNG NHẬP</button>
-					</form>
-
-					<!-- Đăng ký tài khoản -->
-					<div class="text-center mt-3">
-						<p class="mb-0">
-							Chưa có tài khoản?
-							<a href="#" class="text-primary">Đăng ký ngay</a>
-						</p>
-					</div>
+			<p class="text-center text-muted">Hoặc</p>
+			<% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+			<ul class="text-danger">
+				<% errors.forEach(error => { %>
+				<li><%= error.msg %></li>
+				<% }) %>
+			</ul>
+			<% } %>
+			<!-- Form đăng nhập -->
+			<form id="login-form" action="/login" method="POST">
+				<div class="form-group">
+					<label for="email">Email/Username</label>
+					<input class="form-control" id="email" name="email" placeholder="Nhập email" required />
+					<div class="invalid-feedback">Vui lòng nhập địa chỉ email hợp lệ.</div>
 				</div>
+				<div class="form-group">
+					<label for="password">Mật khẩu</label>
+					<input type="password" class="form-control" id="password" name="password" placeholder="Nhập mật khẩu" required autocomplete="current-password" />
+					<div class="invalid-feedback">Vui lòng nhập mật khẩu hợp lệ.</div>
+				</div>
+				<div class="d-flex justify-content-end">
+					<a href="#" class="small">Quên mật khẩu?</a>
+				</div>
+				<button type="submit" class="btn btn-dark btn-block mt-3">ĐĂNG NHẬP</button>
+			</form>
+
+			<!-- Đăng ký tài khoản -->
+			<div class="text-center mt-3">
+				<p class="mb-0">
+					Chưa có tài khoản?
+					<a href="#" class="text-primary">Đăng ký ngay</a>
+				</p>
 			</div>
 		</div>
-	</body>
-</html>
+	</div>
+</div>
