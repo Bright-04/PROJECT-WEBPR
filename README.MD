@@ -1,10 +1,12 @@
 # Online Newspaper Web Application
 
-A web programming course project developed as the final assignment for Web Programming (WEPR330479E), Semester 1, 2024-2025 at Ho Chi Minh City University of Technology and Education (HCMUTE).
+A comprehensive web programming course project developed as the final assignment for Web Programming (WEPR330479E), Semester 1, 2024-2025 at Ho Chi Minh City University of Technology and Education (HCMUTE).
 
 ## Project Overview
 
 This project implements a full-stack online newspaper platform that demonstrates the practical application of web development concepts learned throughout the course. It features a multi-role user system, content management capabilities, and premium content features.
+
+The application follows an MVC architecture and implements a complete publishing workflow from content creation by writers through editorial review to reader consumption, with premium subscription features for monetization.
 
 ## Course Information
 - **Course**: Web Programming (WEPR330479E)
@@ -24,23 +26,51 @@ This project implements a full-stack online newspaper platform that demonstrates
 ### Reader Features
 - Browse articles by categories and tags
 - View article details with comments
-- Search functionality
+- Search functionality with support for filtering
 - Premium content access for subscribers
 - User profile management
+- PDF download of premium articles
+- Comment on articles
+- Search history tracking
+- Premium subscription management
 
 ### Writer Features
-- Create and edit articles
-- Rich text editor with image upload
-- Article status tracking
-- Category assignment
+- Create and edit articles with different statuses (draft, waiting, published, etc.)
+- Rich text editor with image upload via TinyMCE
+- Article status tracking (draft, waiting, need changes, archived, published)
+- Category and tag assignment
 - Premium content flagging
+- Receive editorial feedback notifications
+- Track article approval history
+- Submit articles for review
 
 ### Editor Features
-- Review pending articles
-- Approve or reject submissions with feedback
-- Manage article tags
-- Monitor published content
+- Review pending articles in their assigned category
+- Approve or reject submissions with detailed feedback
+- Manage article tags and categories
+- Monitor published content in their domain
 - Category-based content management
+- Process articles with different statuses (waiting, need changes, published)
+- View analytics on managed content
+
+### Admin Features
+- Manage all users (readers, writers, editors)
+- Assign categories to editors
+- System-wide content oversight
+- Tag management across the platform
+- View and modify user roles
+- User account management
+- Monitor premium subscriptions
+- System configuration
+
+## Content Workflow
+
+```
+Writer Creates/Edits Article → Submits for Review → 
+Editor Reviews → Approves/Requests Changes → 
+Writer Makes Changes (if needed) → Article Published → 
+Readers Access Content (Premium features for subscribers)
+```
 
 ## Technology Stack
 
@@ -49,6 +79,7 @@ This project implements a full-stack online newspaper platform that demonstrates
 - Bootstrap 4.6
 - TinyMCE Editor
 - jQuery
+- AJAX for asynchronous operations
 
 ### Backend
 - Node.js
@@ -73,6 +104,7 @@ This project implements a full-stack online newspaper platform that demonstrates
 ### Authentication
 - `passport` - Authentication middleware
 - `passport-google-oauth20` - Google OAuth2.0 strategy
+- Local authentication strategy
 
 ### Development Tools
 - `nodemon` - Development server with auto-reload
@@ -82,14 +114,18 @@ This project implements a full-stack online newspaper platform that demonstrates
 ```
 src/
 ├── config/         # Configuration files
-├── controllers/    # Route handlers
+├── controllers/    # Route handlers (admin, article, editor, writer)
 ├── middlewares/    # Custom middleware functions
-├── models/        # Database models
-├── public/        # Static files (CSS, JS, images)
-├── routes/        # Route definitions
-├── services/      # Business logic
-├── views/         # EJS templates
-└── server.js      # Application entry point
+├── models/         # Database models
+├── public/         # Static files (CSS, JS, images)
+├── routes/         # Route definitions
+├── services/       # Business logic (article, user, category, tag)
+├── views/          # EJS templates
+│   ├── vwAdmin/    # Admin views
+│   ├── vwEditor/   # Editor views
+│   ├── vwWriter/   # Writer views
+│   └── layouts/    # Shared layouts
+└── server.js       # Application entry point
 ```
 
 ## Development Requirements
@@ -106,8 +142,8 @@ src/
 
 1. Clone the repository
 ```bash
-git clone [repository-url]
-cd [project-directory]
+git clone https://github.com/Bright-04/PROJECT-WEBPR
+cd PROJECT-WEBPR
 ```
 
 2. Install dependencies
@@ -153,6 +189,41 @@ mysql -u your_username -p < database_query.sql
 npm start
 ```
 
+### Troubleshooting
+- If you encounter database connection issues, verify your MySQL credentials and ensure the service is running
+- For TinyMCE issues, check that your API key is correctly configured in the .env file
+- For image upload problems, ensure the upload directories have proper write permissions
+
+## API Routes Overview
+
+### Authentication Routes
+- `/auth/login` - User login
+- `/auth/register` - User registration
+- `/auth/google` - Google OAuth login
+
+### Article Routes
+- `/articles/:id` - View article details
+- `/articles/search` - Search articles
+- `/articles/:id/comments` - Post comments
+
+### Writer Routes
+- `/writer` - Writer dashboard
+- `/writer/new` - Create new article
+- `/writer/edit/:id` - Edit existing article
+
+### Editor Routes
+- `/editor` - Editor dashboard
+- `/editor/edit/:id` - Review article
+- `/editor/approve` - Approve article
+- `/editor/reject` - Reject article with feedback
+
+### Admin Routes
+- `/admin` - Admin dashboard
+- `/admin/writers` - Manage writers
+- `/admin/editors` - Manage editors
+- `/admin/readers` - Manage readers
+- `/admin/tags` - Manage tags
+
 ## Implementation Status
 
 ### Completed Features
@@ -163,6 +234,8 @@ npm start
 - Text editor integration
 - Image upload functionality
 - Responsive layout design
+- Article approval workflow
+- Comment system
 
 ### In Progress
 - Comment system enhancement
@@ -200,4 +273,4 @@ This project is submitted as coursework for the Web Programming course at HCMUTE
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License](LICENSE).
