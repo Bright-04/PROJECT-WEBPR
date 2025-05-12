@@ -6,7 +6,7 @@ export default {
 		if (!req.session.user) {
 			return res.redirect("/login");
 		}
-		res.render("vwProfile/Edit", {
+		res.render("vwProfile/edit", {
 			layout: "layouts/reader.main.ejs",
 			user: req.session.user,
 		});
@@ -24,7 +24,7 @@ export default {
 				const user = await userService.findUserById(req.session.user.user_id);
 
 				if (!user || !user.password) {
-					return res.render("vwProfile/Edit", {
+					return res.render("vwProfile/edit", {
 						layout: "layouts/reader.main.ejs",
 						user: req.session.user,
 						error: "User authentication failed",
@@ -34,7 +34,7 @@ export default {
 				const isValidPassword = await bcrypt.compare(old_password, user.password);
 
 				if (!isValidPassword) {
-					return res.render("vwProfile/Edit", {
+					return res.render("vwProfile/edit", {
 						layout: "layouts/reader.main.ejs",
 						user: req.session.user,
 						error: "Current password is incorrect",
@@ -45,7 +45,7 @@ export default {
 			// Validate unique username/email
 			const existingUser = await userService.findByUsername(username);
 			if (existingUser && existingUser.user_id !== req.session.user.user_id) {
-				return res.render("vwProfile/Edit", {
+				return res.render("vwProfile/edit", {
 					layout: "layouts/reader.main.ejs",
 					user: req.session.user,
 					error: "Username already exists",
@@ -72,14 +72,14 @@ export default {
 			const updatedUser = await userService.findUserById(req.session.user.user_id);
 			req.session.user = updatedUser;
 
-			res.render("vwProfile/Edit", {
+			res.render("vwProfile/edit", {
 				layout: "layouts/reader.main.ejs",
 				user: updatedUser,
 				success: "Profile updated successfully",
 			});
 		} catch (error) {
 			console.error("Profile update error:", error);
-			res.render("vwProfile/Edit", {
+			res.render("vwProfile/edit", {
 				layout: "layouts/reader.main.ejs",
 				user: req.session.user,
 				error: "Failed to update profile",

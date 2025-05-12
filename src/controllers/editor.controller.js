@@ -104,7 +104,7 @@ export default {
 			const article_id = req.query.id;
 			const editor_id = req.session.user.user_id;
 			const { comment, publish_date } = req.body;
-			console.log(publish_date);
+			// console.log(publish_date);
 
 			const parsedDate = parse(publish_date, "dd-MM-yyyy HH:mm", new Date());
 			const formattedDate = format(parsedDate, "yyyy-MM-dd HH:mm:ss");

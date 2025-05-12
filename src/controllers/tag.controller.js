@@ -21,7 +21,7 @@ export default {
 			const { articles, totalPages } = result;
 
 			// Truyền tag và bài viết vào view
-			res.render("../views/vwHomepage/List_byTag.ejs", {
+			res.render("../views/vwHomepage/list_by_tag.ejs", {
 				tag,
 				articles,
 				currentPage: page,

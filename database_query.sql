@@ -1,9 +1,9 @@
-CREATE DATABASE OnlineNewspaper;
+CREATE DATABASE onlinenewspaper;
 
-USE OnlineNewspaper;
+USE onlinenewspaper;
 
--- Bảng Users
-CREATE TABLE Users (
+-- Bảng users
+CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
     password VARCHAR(255) NOT NULL,
@@ -16,17 +16,17 @@ CREATE TABLE Users (
     premium BOOLEAN DEFAULT FALSE
 );
 
--- Bảng Categories
-CREATE TABLE Categories (
+-- Bảng categories
+CREATE TABLE categories (
     category_id INT AUTO_INCREMENT PRIMARY KEY,
     category_name VARCHAR(50) NOT NULL,
     description TEXT,
     belong_to INT,
-    FOREIGN KEY (belong_to) REFERENCES Categories (category_id)
+    FOREIGN KEY (belong_to) REFERENCES categories (category_id)
 );
 
--- Bảng Articles
-CREATE TABLE Articles (
+-- Bảng articles
+CREATE TABLE articles (
     article_id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     content TEXT,
@@ -39,68 +39,68 @@ CREATE TABLE Articles (
     writer_id INT,
     category_id INT,
     editor_id INT,
-    FOREIGN KEY (writer_id) REFERENCES Users(user_id),
-    FOREIGN KEY (category_id) REFERENCES Categories(category_id),
-    FOREIGN KEY (editor_id) REFERENCES Users(user_id)
+    FOREIGN KEY (writer_id) REFERENCES users(user_id),
+    FOREIGN KEY (category_id) REFERENCES categories(category_id),
+    FOREIGN KEY (editor_id) REFERENCES users(user_id)
 );
 
--- Bảng Tags
-CREATE TABLE Tags (
+-- Bảng tags
+CREATE TABLE tags (
     tag_id INT AUTO_INCREMENT PRIMARY KEY,
     tag_name VARCHAR(50) NOT NULL
 );
 
--- Bảng Comments
-CREATE TABLE Comments (
+-- Bảng comments
+CREATE TABLE comments (
     comment_id INT AUTO_INCREMENT PRIMARY KEY,
     content TEXT,
     article_id INT,
     user_id INT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (article_id) REFERENCES Articles(article_id),
-    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+    FOREIGN KEY (article_id) REFERENCES articles(article_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
--- Bảng Notifications
-CREATE TABLE Notifications (
+-- Bảng notifications
+CREATE TABLE notifications (
     not_id INT AUTO_INCREMENT PRIMARY KEY,
     sender_id INT,
     receiver_id INT,
     note_content TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (sender_id) REFERENCES Users(user_id),
-    FOREIGN KEY (receiver_id) REFERENCES Users(user_id)
+    FOREIGN KEY (sender_id) REFERENCES users(user_id),
+    FOREIGN KEY (receiver_id) REFERENCES users(user_id)
 );
 
--- Bảng ApprovalHistories
-CREATE TABLE ApprovalHistories (
+-- Bảng approvalhistories
+CREATE TABLE approvalhistories (
     approval_id INT AUTO_INCREMENT PRIMARY KEY,
     editor_id INT,
     approval_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     note_content TEXT,
     article_id INT,
-    FOREIGN KEY (editor_id) REFERENCES Users(user_id),
-    FOREIGN KEY (article_id) REFERENCES Articles(article_id)
+    FOREIGN KEY (editor_id) REFERENCES users(user_id),
+    FOREIGN KEY (article_id) REFERENCES articles(article_id)
 );
 
--- Liên kết Articles với Tags (N-N)
-CREATE TABLE ArticleTags (
+-- Liên kết articles với tags (N-N)
+CREATE TABLE articletags (
     article_id INT,
     tag_id INT,
     PRIMARY KEY (article_id, tag_id),
-    FOREIGN KEY (article_id) REFERENCES Articles(article_id),
-    FOREIGN KEY (tag_id) REFERENCES Tags(tag_id)
+    FOREIGN KEY (article_id) REFERENCES articles(article_id),
+    FOREIGN KEY (tag_id) REFERENCES tags(tag_id)
 );
 
-ALTER TABLE Users ADD managed_category_id INT;
-ALTER TABLE Users ADD FOREIGN KEY (managed_category_id) REFERENCES Categories(category_id);
+ALTER TABLE users ADD managed_category_id INT;
+ALTER TABLE users ADD FOREIGN KEY (managed_category_id) REFERENCES categories(category_id);
 
 -- Phake data
-USE OnlineNewspaper;
+USE onlinenewspaper;
 
--- Insert Users
-INSERT INTO Users (username, password, email, full_name, dob, user_role, is_active, subscription_expired_date, premium)
+-- Insert users
+INSERT INTO users (username, password, email, full_name, dob, user_role, is_active, subscription_expired_date, premium)
 VALUES
     ('writer1', 'password123', 'writer1@example.com', 'John Doe', '1985-06-15', 'writer', TRUE, '2025-12-31', FALSE),
     ('editor1', 'password123', 'editor1@example.com', 'Jane Smith', '1978-03-22', 'editor', TRUE, NULL, FALSE),
@@ -108,8 +108,8 @@ VALUES
     ('reader1', 'password123', 'reader1@example.com', 'Mike Johnson', '2000-07-11', 'reader', TRUE, '2024-06-01', TRUE),
     ('reader2', 'password123', 'reader2@example.com', 'Sarah Lee', '1992-11-20', 'reader', TRUE, NULL, FALSE);
 
--- Insert Categories
-INSERT INTO Categories (category_name, description, belong_to) VALUES
+-- Insert categories
+INSERT INTO categories (category_name, description, belong_to) VALUES
 ('Thời sự', 'Chuyên mục thời sự', NULL),
 ('Kinh tế', 'Chuyên mục kinh tế', NULL),
 ('Thể thao', 'Chuyên mục thể thao', NULL),
@@ -171,8 +171,8 @@ INSERT INTO Categories (category_name, description, belong_to) VALUES
 ('Chứng khoán', 'Chuyên mục chứng khoán', 12),
 ('Doanh nhân', 'Chuyên mục doanh nhân', 12);
 
--- Insert Articles
-INSERT INTO Articles (title, content, abstract, thumbnail, views, status, published_date, is_premium, writer_id, category_id, editor_id)
+-- Insert articles
+INSERT INTO articles (title, content, abstract, thumbnail, views, status, published_date, is_premium, writer_id, category_id, editor_id)
 VALUES
     ('Xu hướng công nghệ 2024', 'Nội dung bài viết về xu hướng công nghệ năm 2024...', 'Xu hướng công nghệ nổi bật năm 2024', 'tech2024.jpg', 1200, 'published', '2024-12-01', TRUE, 1, 6, 2),
     ('Tình hình kinh tế Việt Nam', 'Phân tích tình hình kinh tế Việt Nam 2024...', 'Tóm tắt tình hình kinh tế trong năm 2024', 'economy2024.jpg', 850, 'published', '2024-12-10', FALSE, 1, 2, 2),
@@ -180,8 +180,8 @@ VALUES
     ('Chuyển nhượng bóng đá mùa đông', 'Các thương vụ chuyển nhượng đáng chú ý...', 'Thị trường chuyển nhượng mùa đông', 'football.jpg', 950, 'published', '2024-12-05', FALSE, 1, 3, 2),
     ('Ẩm thực đường phố Hà Nội', 'Những món ăn đặc sắc của Hà Nội...', 'Trải nghiệm ẩm thực đường phố tại Hà Nội', 'streetfood.jpg', 300, 'published', '2024-11-25', FALSE, 1, 5, 2);
 
--- Insert Tags
-INSERT INTO Tags (tag_name) VALUES
+-- Insert tags
+INSERT INTO tags (tag_name) VALUES
     ('Công nghệ'),
     ('Kinh tế'),
     ('Đời sống'),
@@ -191,37 +191,37 @@ INSERT INTO Tags (tag_name) VALUES
     ('Giáo dục'),
     ('Xe cộ');
 
--- Link Articles with Tags
-INSERT INTO ArticleTags (article_id, tag_id) VALUES
+-- Link articles with tags
+INSERT INTO articletags (article_id, tag_id) VALUES
     (1, 1), -- Công nghệ cho bài "Xu hướng công nghệ 2024"
     (2, 2), -- Kinh tế cho bài "Tình hình kinh tế Việt Nam"
     (3, 3), -- Đời sống cho bài "Đời sống người dân vùng cao"
     (4, 4), -- Thể thao cho bài "Chuyển nhượng bóng đá mùa đông"
     (5, 5); -- Ẩm thực cho bài "Ẩm thực đường phố Hà Nội"
 
--- Insert Comments
-INSERT INTO Comments (content, article_id, user_id) VALUES
+-- Insert comments
+INSERT INTO comments (content, article_id, user_id) VALUES
     ('Bài viết rất hay và hữu ích!', 1, 4),
     ('Tôi đồng ý với quan điểm trong bài này.', 2, 4),
     ('Chưa thấy đủ chi tiết, mong bài viết được mở rộng hơn.', 3, 5),
     ('Thông tin rất thú vị, cảm ơn tác giả.', 5, 4),
     ('Cần thêm hình ảnh minh họa cho bài viết.', 4, 5);
 
--- Insert Notifications
-INSERT INTO Notifications (sender_id, receiver_id, note_content) VALUES
+-- Insert notifications
+INSERT INTO notifications (sender_id, receiver_id, note_content) VALUES
     (3, 2, 'Vui lòng duyệt bài viết mới: "Đời sống người dân vùng cao".'),
     (2, 1, 'Bài viết "Tình hình kinh tế Việt Nam" đã được duyệt và đăng tải.'),
     (3, 4, 'Hãy kiểm tra bình luận của bạn trên bài viết "Xu hướng công nghệ 2024".');
 
 -- Insert Approval Histories
-INSERT INTO ApprovalHistories (editor_id, approval_date, note_content, article_id) VALUES
+INSERT INTO approvalhistories (editor_id, approval_date, note_content, article_id) VALUES
     (2, '2024-12-01 10:30:00', 'Bài viết đã hoàn thiện và sẵn sàng đăng.', 1),
     (2, '2024-12-10 15:45:00', 'Phân tích sâu sắc, bài viết đạt yêu cầu.', 2),
     (2, '2024-12-05 09:20:00', 'Cần chú ý hơn vào hình ảnh minh họa.', 4);
 
 
--- Insert Additional Articles
-INSERT INTO Articles (title, content, abstract, thumbnail, views, status, published_date, is_premium, writer_id, category_id, editor_id)
+-- Insert Additional articles
+INSERT INTO articles (title, content, abstract, thumbnail, views, status, published_date, is_premium, writer_id, category_id, editor_id)
 VALUES
     ('Vinfast mở rộng thị trường Bắc Mỹ', 'Chi tiết về kế hoạch mở rộng của Vinfast...', 'Vinfast tiếp tục chiến lược toàn cầu hóa', 'vinfast_expansion.jpg', 3500, 'published', '2024-12-15', TRUE, 1, 9, 2),
     ('Top 10 điểm du lịch hot nhất 2024', 'Khám phá những điểm đến hấp dẫn...', 'Những địa điểm du lịch không thể bỏ qua', 'tourism2024.jpg', 2800, 'published', '2024-12-14', FALSE, 1, 7, 2),
@@ -254,7 +254,7 @@ VALUES
     ('Bảo tồn di sản văn hóa', 'Nỗ lực bảo tồn di sản...', 'Giữ gìn bản sắc văn hóa', 'cultural_heritage.jpg', 3700, 'published', '2024-11-17', FALSE, 1, 5, 2),
     ('Khởi nghiệp từ làng quê', 'Câu chuyện khởi nghiệp nông thôn...', 'Phát triển kinh tế nông thôn', 'rural_startup.jpg', 2800, 'published', '2024-11-16', FALSE, 1, 12, 2);
 
-INSERT INTO ArticleTags (article_id, tag_id)
+INSERT INTO articletags (article_id, tag_id)
 SELECT 
     a.article_id,
     CASE
@@ -267,11 +267,11 @@ SELECT
         WHEN a.category_id = 9 THEN 8        -- Xe cộ
         ELSE 1                               -- Default to Công nghệ
     END AS tag_id
-FROM Articles a
+FROM articles a
 WHERE a.article_id > 5
 AND NOT EXISTS (
     SELECT 1 
-    FROM ArticleTags at 
+    FROM articletags at 
     WHERE at.article_id = a.article_id
       AND at.tag_id = CASE
           WHEN a.category_id IN (6, 8) THEN 1

@@ -1,12 +1,13 @@
 import express from "express";
 import session from "express-session";
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 import https from 'https';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+
 dotenv.config();
-import configurePassport from './config/passport.js';
+import configurePassport from "./config/passport.js";
 
 // Get directory name in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -27,6 +28,7 @@ import configViewEngine from "./config/viewEngine.js";
 import { setLocalCategories } from "./middlewares/category.mdw.js";
 import { setUser } from "./middlewares/user.mdw.js";
 import { isAuth, isEditor, isWriter, isAdmin } from "./middlewares/auth.mdw.js";
+import { publish } from "./middlewares/publish.js";
 
 // Initialize express app
 const app = express();
@@ -74,11 +76,12 @@ app.use(
 configurePassport(app);
 
 app.use(setUser);
+app.use(publish);
 
 // Add reCAPTCHA site key to locals
 app.use((req, res, next) => {
-    res.locals.GOOGLE_RECAPTCHA_SITE_KEY = process.env.GOOGLE_RECAPTCHA_SITE_KEY;
-    next();
+	res.locals.GOOGLE_RECAPTCHA_SITE_KEY = process.env.GOOGLE_RECAPTCHA_SITE_KEY;
+	next();
 });
 
 // Public routes

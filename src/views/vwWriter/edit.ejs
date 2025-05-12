@@ -148,7 +148,7 @@
 			   data-role="tagsinput"
 			   placeholder="Input tag..."
 			   name="tags"
-			   value="<%= tags || '' %>"
+			   value="<%= typeof tags !== 'undefined' ? tags : '' %>"
 		/>
 	</div>
 

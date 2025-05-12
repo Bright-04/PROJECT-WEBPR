@@ -16,7 +16,7 @@ router.get("/art-card", async (req, res) => {
 	const mostViewedArticles = await articleService.findAllArticles();
 	const top10MostViewed = mostViewedArticles.sort((a, b) => b.views - a.views).slice(0, 10);
 
-	console.log(top10MostViewed);
+	// console.log(top10MostViewed);
 
 	// Render the homepage with all required data
 	res.render("vwHomepage/test", {

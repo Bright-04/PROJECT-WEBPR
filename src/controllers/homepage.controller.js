@@ -36,7 +36,7 @@ export default {
 				})
 			);
 
-			console.log(top10Newest);
+			// console.log(top10Newest);
 			// Get most viewed articles
 			const mostViewedArticles = await ArticleService.findByStatus("published");
 			const top10MostViewed = await Promise.all(
@@ -50,7 +50,7 @@ export default {
 			);
 
 			// Render the homepage with all required data
-			res.render("vwHomepage/Homepage", {
+			res.render("vwHomepage/homepage", {
 				categoryArticles: validTop10Category,
 				newestArticles: top10Newest,
 				mostViewedArticles: top10MostViewed,
@@ -86,7 +86,7 @@ export default {
 
 			const { articles, totalPages } = result;
 
-			res.render("../views/vwHomepage/List", {
+			res.render("../views/vwHomepage/list", {
 				category,
 				articles,
 				currentPage: page,

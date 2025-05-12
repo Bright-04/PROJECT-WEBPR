@@ -25,7 +25,7 @@ router.get('/register/oauth', (req, res) => {
   if (!req.user) {
     return res.redirect('/login');
   }
-  res.render('vwLogin/RegisterOAuth', {
+  res.render('vwLogin/register_o_auth', {
     layout: 'layouts/login.main.ejs',
     user: req.user,
     error: null
@@ -55,7 +55,7 @@ router.post('/register/oauth', async (req, res) => {
     res.redirect('/homepage');
   } catch (error) {
     console.error('OAuth registration error:', error);
-    res.render('vwLogin/RegisterOAuth', {
+    res.render('vwLogin/register_o_auth', {
       layout: false, // Remove layout since RegisterOAuth has its own
       user: req.user,
       error: 'Failed to complete registration'

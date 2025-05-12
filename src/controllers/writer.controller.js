@@ -72,10 +72,10 @@ export default {
 
 		for (let i = 0; i < articles.length; i++) {
 			articles[i].tags = tagsByArticles[articles[i].article_id] || [];
-			console.log(articles[i]);
+			// console.log(articles[i]);
 		}
 
-		res.render("vwWriter/Writer", {
+		res.render("vwWriter/writer", {
 			layout: "layouts/admin.main.ejs",
 			articles: articles.slice(offset, offset + maxArticlePerPage),
 			activeTab: activeTab,
@@ -148,7 +148,7 @@ export default {
 				category_id: category,
 				editor_id: null,
 			};
-			console.log(entity);
+			// console.log(entity);
 			const articleId = await articleService.addArticle(entity);
 
 			// Check if all the tags are already in the database if not, add them

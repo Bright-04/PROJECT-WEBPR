@@ -19,7 +19,7 @@ export default {
 			// console.log('Approved Articles:', approvedArticles);
 			// console.log('Pending Articles:', pendingArticles);
 
-			res.render("vwAdmin/Admin.dashboard.ejs", {
+			res.render("vwAdmin/admin.dashboard.ejs", {
 				layout: "layouts/admin.main.ejs",
 				approvedArticles: approvedArticles,
 				pendingArticles: pendingArticles,
@@ -48,7 +48,7 @@ export default {
 			const writers = await userService.findUsersByRole("writer");
 
 			// Render trang danh sách writers
-			res.render("vwAdmin/Admin.writers.ejs", {
+			res.render("vwAdmin/admin.writers.ejs", {
 				writers: writers,
 				layout: "layouts/admin.main.ejs",
 			});
@@ -74,7 +74,7 @@ export default {
 			const publishedArticles = await articleService.findByWriterId(writerId);
 			const filteredArticles = publishedArticles.filter((article) => article.status === "published");
 
-			res.render("vwAdmin/Admin.writerDetails.ejs", {
+			res.render("vwAdmin/admin.writer_details.ejs", {
 				writer: writerDetails,
 				layout: "layouts/admin.main.ejs",
 				articles: filteredArticles,
@@ -89,7 +89,7 @@ export default {
 	async getAllTags(req, res) {
 		try {
 			const tags = await TagService.findAllTags();
-			res.render("vwAdmin/Tags.ejs", { tags, layout: "layouts/admin.main.ejs" });
+			res.render("vwAdmin/tags.ejs", { tags, layout: "layouts/admin.main.ejs" });
 		} catch (error) {
 			console.error("Error in getAllTags:", error);
 			res.status(500).redirect("/500");
@@ -104,7 +104,7 @@ export default {
 			if (!tag) {
 				return res.status(404).render("vwError/404", { message: "Tag not found" });
 			}
-			res.render("vwAdmin/TagDetails.ejs", { tag, layout: "layouts/admin.main.ejs" });
+			res.render("vwAdmin/tag_details.ejs", { tag, layout: "layouts/admin.main.ejs" });
 		} catch (error) {
 			console.error("Error in getTagById:", error);
 			res.status(500).render("vwError/500", { message: "Internal Server Error" });

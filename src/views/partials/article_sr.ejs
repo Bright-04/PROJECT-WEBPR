@@ -41,7 +41,7 @@
 			<p class="mb-1"><%= new Date(article.published_date).toLocaleDateString('vi-VN') %></p>
 		</div>
 		<% if (typeof show_tags !== 'undefined' && show_tags) { %> <% article.tags.forEach(tag => { %>
-		<span class="badge badge-info"><%= tag.tag_name %></span>
+		<a href="/homepage/tag?id=<%= tag.tag_id %>" class="badge badge-info"><%= tag.tag_name %></a>
 		<%}); %> <% } %>
 	</div>
 	<img src="/img/<%= article.thumbnail %>" alt="<%= article.title %>" class="img-fluid w-30 pl-3" style="height: 150px; object-fit: cover" />

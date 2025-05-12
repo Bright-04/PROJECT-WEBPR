@@ -1,6 +1,23 @@
 # Online Newspaper Web Application
 
-A full-stack web application for managing and publishing online news articles with different user roles and premium content features.
+A web programming course project developed as the final assignment for Web Programming (WEPR330479E), Semester 1, 2024-2025 at Ho Chi Minh City University of Technology and Education (HCMUTE).
+
+## Project Overview
+
+This project implements a full-stack online newspaper platform that demonstrates the practical application of web development concepts learned throughout the course. It features a multi-role user system, content management capabilities, and premium content features.
+
+## Course Information
+- **Course**: Web Programming (WEPR330479E)
+- **Semester**: 1 (2024-2025)
+- **Institution**: Ho Chi Minh City University of Technology and Education
+- **Instructor**: MIT. Ngô Ngọc Đăng Khoa
+
+### Team Members
+- Đặng Hữu Lộc - 22110052
+- Nguyễn Nhật Quang - 22110065
+- Nguyễn Quang Sáng - 22110067
+- Hồ Thành Đạt - 22110020
+- Nguyễn Gia Huy - 22110034
 
 ## Features
 
@@ -56,7 +73,6 @@ A full-stack web application for managing and publishing online news articles wi
 ### Authentication
 - `passport` - Authentication middleware
 - `passport-google-oauth20` - Google OAuth2.0 strategy
-- `passport-facebook` - Facebook authentication strategy
 
 ### Development Tools
 - `nodemon` - Development server with auto-reload
@@ -76,6 +92,16 @@ src/
 └── server.js      # Application entry point
 ```
 
+## Development Requirements
+
+### Prerequisites
+- Node.js (v16 or higher)
+- MySQL (v8.0 or higher)
+- Git
+- NPM or Yarn package manager
+- Web browser with JavaScript enabled
+- Code editor (VS Code recommended)
+
 ## Setup and Installation
 
 1. Clone the repository
@@ -91,15 +117,29 @@ npm install
 
 3. Create a `.env` file based on `.env.example`
 ```
-NODE_ENV=development
-HOST_NAME=localhost
-PORT=3000
-DB_HOST=localhost
-DB_PORT=3306
-DB_USER=your_username
-DB_PWD=your_password
-DB_NAME=OnlineNewspaper
-TINY_API_KEY=your_tinymce_api_key
+NODE_ENV= this could be development or production
+HOST_NAME= your website host name
+PORT= your website port number
+
+# DB config
+DB_HOST=your database host name
+DB_PORT= your database port number
+DB_USER=your database username
+DB_PWD=your database password
+DB_NAME=your database name
+
+TINY_API_KEY=your tiny api key
+
+PASSWORD_ROUND=your password round (random number for password hashing, should be small) 
+
+SESSION_SECRET=your session secret (random string)
+
+# For captcha and google login
+GOOGLE_CLIENT_ID=google client id
+GOOGLE_CLIENT_SECRET=google client secret
+GOOGLE_CALLBACK_URL=google callback url
+GOOGLE_RECAPTCHA_SITE_KEY=google recaptcha site key
+GOOGLE_RECAPTCHA_SECRET_KEY=google recaptcha secret key
 ```
 
 4. Set up the database
@@ -113,12 +153,38 @@ mysql -u your_username -p < database_query.sql
 npm start
 ```
 
+## Implementation Status
+
+### Completed Features
+- User authentication (Local, Google)
+- Article management system
+- Category and tag management
+- User role-based access control
+- Text editor integration
+- Image upload functionality
+- Responsive layout design
+
+### In Progress
+- Comment system enhancement
+- Premium subscription features
+- Profile management improvements
+- Search optimization
+
+### Planned Features
+- Real-time notifications
+- Article analytics
+- Email newsletter system
+- Content recommendation engine
+
 ## User Roles
 
 - **Reader**: Browse articles, comment, and access premium content (if subscribed)
 - **Writer**: Create and edit articles
 - **Editor**: Review and manage content
 - **Admin**: System administration
+
+### Current Category Management
+- "Kinh tế" category is managed by editor1
 
 ## Contributing
 
@@ -127,6 +193,10 @@ npm start
 3. Commit your changes
 4. Push to the branch
 5. Create a Pull Request
+
+## Academic Integrity Statement
+
+This project is submitted as coursework for the Web Programming course at HCMUTE. All work presented is original and completed in accordance with academic integrity guidelines.
 
 ## License
 
