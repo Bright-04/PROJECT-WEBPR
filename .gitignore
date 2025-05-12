@@ -133,3 +133,7 @@ dist
 
 src/public/img
 develop
+
+# Ignore SSL certificates (pls dm #NQ for certificates)
+certificates/
+*.pem
