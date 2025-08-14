@@ -3,8 +3,13 @@ import defaultController from "../controllers/default.controller.js";
 import { registerValidation } from "../validators/register.validator.js";
 const router = express.Router();
 
+// Health check endpoint for Docker
+router.get("/health", function (req, res) {
+	res.status(200).json({ status: "OK", timestamp: new Date().toISOString() });
+});
+
 router.get("/", function (req, res) {
-	res.redirect("/homepage")
+	res.redirect("/homepage");
 });
 
 router.get("/register", defaultController.getRegister);

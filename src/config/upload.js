@@ -4,7 +4,8 @@ import path from "path";
 
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
-		cb(null, "./src/public/img/");
+		// Use uploads directory for Docker compatibility
+		cb(null, process.env.UPLOAD_PATH || "./src/public/img/");
 	},
 	filename: function (req, file, cb) {
 		const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
