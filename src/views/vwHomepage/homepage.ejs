@@ -1,67 +1,1146 @@
-<div class="container p-0">
-	<!-- Row 1: Feature Articles - Slideshow Animation -->
-	<div id="FeaturedArticles" class="carousel slide w-100" data-ride="carousel">
-		<ol class="carousel-indicators">
-			<% for (let i = 0; i < newestArticles.slice(0, 4).length; i++) { %>
-			<li data-target="#FeaturedArticles" data-slide-to="<%= i %>" class="<%= i === 0 ? 'active' : '' %>"></li>
-			<% } %>
-		</ol>
-		<div class="carousel-inner" role="listbox">
-			<% newestArticles.slice(0, 4).forEach((article, index) => { %>
-			<div class="carousel-item <%= index === 0 ? 'active' : '' %>">
-				<a href="/article/<%= article.article_id %>">
-					<img src="/img/<%= article.thumbnail %>" class="d-block w-100" alt="<%= article.title %>" style="height: 750px" />
-					<div class="carousel-caption d-none d-md-block">
-						<h3><%= article.title %></h3>
-						<p><%= new Date(article.published_date).toLocaleDateString('vi-VN') %> |</p>
-					</div>
-				</a>
-			</div>
-			<% }) %>
+<!-- Hero Section with Featured Articles -->
+<section class="hero-section featured-articles">
+	<div class="container">
+		<div class="section-header">
+			<h2 class="text-gradient">Tin Tức Nổi Bật</h2>
+			<p class="text-gray-600">Khám phá những câu chuyện quan trọng nhất trong ngày</p>
 		</div>
 
-		<!-- Carousel controls -->
-		<a class="carousel-control-prev" href="#FeaturedArticles" role="button" data-slide="prev">
-			<span class="carousel-control-prev-icon"></span>
-			<span class="sr-only">Previous</span>
-		</a>
-		<a class="carousel-control-next" href="#FeaturedArticles" role="button" data-slide="next">
-			<span class="carousel-control-next-icon"></span>
-			<span class="sr-only">Next</span>
-		</a>
-	</div>
-
-	<!-- Row 2: Latest Articles + Top Categories -->
-	<div class="container pl-0 py-4">
-		<div class="row border-bottom">
-			<!-- Latest Articles -->
-			<div class="col-md-6 border-right">
-				<div class="text-center mb-4">
-					<h3>BÀI VIẾT MỚI NHẤT</h3>
-				</div>
-				<div class="d-flex flex-column" style="gap: 40px"><% newestArticles.forEach(article => { %> <%- include("../partials/article_sr", {article: article, width: 400}) %> <% }) %></div>
+		<div id="FeaturedArticles" class="carousel slide" data-bs-ride="carousel">
+			<div class="carousel-indicators">
+				<% for (let i = 0; i < newestArticles.slice(0, 4).length; i++) { %>
+				<button
+					type="button"
+					data-bs-target="#FeaturedArticles"
+					data-bs-slide-to="<%= i %>"
+					class="<%= i === 0 ? 'active' : '' %>"
+					aria-current="<%= i === 0 ? 'true' : 'false' %>"
+					aria-label="Slide <%= i + 1 %>"
+				></button>
+				<% } %>
 			</div>
 
-			<!-- Top Categories -->
-			<div class="col-md-6">
-				<% categoryArticles.forEach((article) => { %>
-				<div class="card my-2">
-					<div class="card-header">
-						<a href="/category/<%= article.category_id %>" class="h5 text-decoration-none text-reset"> <%= article.category_name.toUpperCase() %> </a>
-					</div>
-					<div class="card-body"><%- include("../partials/article_sl", {article: article, width: 400, show_tags: true}) %></div>
+			<div class="carousel-inner">
+				<% newestArticles.slice(0, 4).forEach((article, index) => { %>
+				<div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+					<a href="/article/<%= article.article_id %>" class="d-block">
+						<img src="/img/<%= article.thumbnail %>" class="d-block w-100" alt="<%= article.title %>" />
+						<div class="carousel-caption">
+							<div class="category-badge mb-3"><%= article.category_name %></div>
+							<h3><%= article.title %></h3>
+							<p>
+								<i class="bi bi-calendar3 me-2"></i>
+								<%= new Date(article.published_date).toLocaleDateString('vi-VN') %>
+								<span class="mx-2">|</span>
+								<i class="bi bi-eye me-2"></i>
+								<%= article.views || 0 %> lượt xem
+							</p>
+						</div>
+					</a>
 				</div>
 				<% }) %>
 			</div>
+
+			<button class="carousel-control-prev" type="button" data-bs-target="#FeaturedArticles" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</button>
+			<button class="carousel-control-next" type="button" data-bs-target="#FeaturedArticles" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</button>
 		</div>
 	</div>
+</section>
 
-	<!-- Row 3: Most Viewed Articles -->
+<!-- Category Highlights Grid -->
+<section class="category-highlights-section">
+	<div class="container">
+		<div class="section-header text-center mb-5">
+			<h2>Khám Phá Theo Chủ Đề</h2>
+			<p class="text-gray-600">Chọn chủ đề bạn quan tâm để khám phá tin tức</p>
+		</div>
 
-	<div class="container card">
-		<div class="card-header text-center"><h2 class="text-center mb-4">BÀI VIẾT ĐƯỢC XEM NHIỀU NHẤT</h2></div>
-		<div class="card-body d-flex flex-wrap flex-row" style="gap: 1em">
-			<% mostViewedArticles.forEach(article => { %> <%- include("../partials/article_m", {article: article, width: "calc(100% / 5 - 15px)", show_cat: true, show_tags: true}) %> <% }); %>
+		<div class="category-grid">
+			<div class="row g-4">
+				<% const parentCategories = categories.filter(cat => cat.belong_to === null); %> <% parentCategories.slice(0, 6).forEach((category, index) => { %>
+				<div class="col-lg-4 col-md-6">
+					<div class="category-card hover-lift animate-fade-in" style="animation-delay: <%= index * 0.1 %>s">
+						<a href="/homepage/cate?id=<%= category.category_id %>" class="category-card-link">
+							<div class="category-card-icon">
+								<i class="bi bi-<%= ['newspaper', 'graph-up', 'cpu', 'trophy', 'music-note', 'heart-pulse'][index % 6] %>"></i>
+							</div>
+							<div class="category-card-content">
+								<h4 class="category-card-title"><%= category.category_name %></h4>
+								<p class="category-card-desc">Khám phá tin tức <%= category.category_name.toLowerCase() %> mới nhất</p>
+								<div class="category-card-meta">
+									<span class="article-count">
+										<i class="bi bi-file-text me-1"></i>
+										<%= Math.floor(Math.random() * 50) + 10 %> bài viết
+									</span>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+				<% }); %>
+			</div>
 		</div>
 	</div>
-</div>
+</section>
+
+<!-- Latest Articles & Categories Section -->
+<section class="content-section">
+	<div class="container">
+		<div class="row g-5">
+			<!-- Latest Articles -->
+			<div class="col-lg-8">
+				<div class="latest-articles">
+					<div class="section-header">
+						<h2>Bài Viết Mới Nhất</h2>
+						<p class="text-gray-600">Cập nhật tin tức mới nhất trong ngày</p>
+					</div>
+
+					<div class="articles-grid animate-stagger">
+						<% newestArticles.forEach((article, index) => { %>
+						<div class="article-item"><%- include("../partials/article_sr", {article: article, width: "100%"}) %></div>
+						<% }) %>
+					</div>
+
+					<div class="text-center mt-5">
+						<a href="/homepage/list" class="btn btn-primary btn-lg">
+							<i class="bi bi-arrow-right me-2"></i>
+							Xem tất cả bài viết
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<!-- Sidebar -->
+			<div class="col-lg-4">
+				<!-- Category Highlights -->
+				<div class="sidebar-widget mb-5">
+					<div class="widget-header">
+						<h4 class="widget-title">
+							<i class="bi bi-grid-3x3-gap me-2 text-primary"></i>
+							Danh Mục Nổi Bật
+						</h4>
+					</div>
+
+					<div class="widget-content">
+						<% categoryArticles.forEach((article) => { %>
+						<div class="category-highlight mb-4">
+							<div class="category-header">
+								<a href="/category/<%= article.category_id %>" class="category-link">
+									<h5 class="category-name">
+										<i class="bi bi-tag me-2"></i>
+										<%= article.category_name.toUpperCase() %>
+									</h5>
+								</a>
+							</div>
+							<div class="category-article"><%- include("../partials/article_sl", {article: article, width: "100%", show_tags: true}) %></div>
+						</div>
+						<% }) %>
+					</div>
+				</div>
+
+				<!-- Trending Tags -->
+				<div class="sidebar-widget">
+					<div class="widget-header">
+						<h4 class="widget-title">
+							<i class="bi bi-fire me-2 text-warning"></i>
+							Thẻ Nổi Bật
+						</h4>
+					</div>
+
+					<div class="widget-content">
+						<div class="tags-cloud">
+							<% const allTags = []; %> <% newestArticles.forEach(article => { %> <% if (article.tags) { %> <% article.tags.forEach(tag => { %> <% if (!allTags.find(t => t.tag_id ===
+							tag.tag_id)) { %> <% allTags.push(tag); %> <% } %> <% }); %> <% } %> <% }); %> <% allTags.slice(0, 15).forEach(tag => { %>
+							<a href="/homepage/tag?id=<%= tag.tag_id %>" class="tag-badge"> #<%= tag.tag_name %> </a>
+							<% }); %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Most Viewed Articles Section -->
+<section class="most-viewed-section">
+	<div class="container">
+		<div class="most-viewed">
+			<div class="section-header">
+				<h2>Bài Viết Được Xem Nhiều Nhất</h2>
+				<p class="text-gray-600">Những bài viết thu hút sự quan tâm của độc giả</p>
+			</div>
+
+			<div class="articles-grid">
+				<div class="row g-4">
+					<% mostViewedArticles.forEach((article, index) => { %>
+					<div class="col-lg-2 col-md-3 col-sm-4 col-6">
+						<div class="article-card hover-lift animate-fade-in" style="animation-delay: <%= index * 0.1 %>s">
+							<a href="/article/<%= article.article_id %>" class="text-decoration-none">
+								<div class="card-img-wrapper">
+									<img src="/img/<%= article.thumbnail %>" class="card-img-top" alt="<%= article.title %>" />
+									<div class="card-overlay">
+										<div class="overlay-content">
+											<i class="bi bi-eye-fill"></i>
+											<span><%= article.views || 0 %></span>
+										</div>
+									</div>
+								</div>
+								<div class="card-body">
+									<% if (typeof show_cat !== 'undefined' && show_cat) { %>
+									<div class="category-badge mb-2"><%= article.category_name %></div>
+									<% } %>
+									<h6 class="card-title text-gray-900"><%= article.title.length > 60 ? article.title.substring(0, 60) + '...' : article.title %></h6>
+									<div class="card-meta">
+										<small class="text-gray-500">
+											<i class="bi bi-calendar3 me-1"></i>
+											<%= new Date(article.published_date).toLocaleDateString('vi-VN') %>
+										</small>
+									</div>
+									<% if (typeof show_tags !== 'undefined' && show_tags && article.tags) { %>
+									<div class="card-tags mt-2">
+										<% article.tags.slice(0, 2).forEach(tag => { %>
+										<span class="tag-badge"> <%= tag.tag_name %> </span>
+										<% }); %>
+									</div>
+									<% } %>
+								</div>
+							</a>
+						</div>
+					</div>
+					<% }); %>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Editor's Picks Section -->
+<section class="editors-picks-section">
+	<div class="container">
+		<div class="section-header text-center mb-5">
+			<h2>Lựa Chọn Của Biên Tập</h2>
+			<p class="text-gray-600">Những bài viết được chọn lọc kỹ lưỡng bởi đội ngũ biên tập</p>
+		</div>
+
+		<div class="editors-picks-grid">
+			<div class="row g-4">
+				<% newestArticles.slice(0, 3).forEach((article, index) => { %>
+				<div class="col-lg-4">
+					<div class="editor-pick-card hover-lift animate-fade-in" style="animation-delay: <%= index * 0.2 %>s">
+						<a href="/article/<%= article.article_id %>" class="editor-pick-link">
+							<div class="editor-pick-image">
+								<img src="/img/<%= article.thumbnail %>" alt="<%= article.title %>" />
+								<div class="editor-pick-badge">
+									<i class="bi bi-star-fill"></i>
+									<span>Editor's Pick</span>
+								</div>
+							</div>
+							<div class="editor-pick-content">
+								<div class="category-badge mb-2"><%= article.category_name %></div>
+								<h4 class="editor-pick-title"><%= article.title %></h4>
+								<p class="editor-pick-excerpt"><%= article.summary ? article.summary.substring(0, 120) + '...' : 'Khám phá bài viết chi tiết về chủ đề này.' %></p>
+								<div class="editor-pick-meta">
+									<span class="publish-date">
+										<i class="bi bi-calendar3 me-1"></i>
+										<%= new Date(article.published_date).toLocaleDateString('vi-VN') %>
+									</span>
+									<span class="read-time">
+										<i class="bi bi-clock me-1"></i>
+										<%= Math.floor(Math.random() * 8) + 3 %> phút đọc
+									</span>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+				<% }); %>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Trending Articles Section -->
+<section class="trending-section">
+	<div class="container">
+		<div class="section-header text-center mb-5">
+			<h2>Tin Tức Đang Thịnh Hành</h2>
+			<p class="text-gray-600">Những bài viết được quan tâm nhiều nhất trong tuần</p>
+		</div>
+
+		<div class="trending-grid">
+			<div class="row g-4">
+				<% newestArticles.slice(0, 6).forEach((article, index) => { %>
+				<div class="col-lg-4 col-md-6">
+					<div class="trending-card hover-lift animate-fade-in" style="animation-delay: <%= index * 0.1 %>s">
+						<a href="/article/<%= article.article_id %>" class="trending-link">
+							<div class="trending-image">
+								<img src="/img/<%= article.thumbnail %>" alt="<%= article.title %>" />
+								<div class="trending-rank">
+									<span>#<%= index + 1 %></span>
+								</div>
+							</div>
+							<div class="trending-content">
+								<div class="category-badge mb-2"><%= article.category_name %></div>
+								<h5 class="trending-title"><%= article.title %></h5>
+								<div class="trending-meta">
+									<span class="views">
+										<i class="bi bi-eye me-1"></i>
+										<%= Math.floor(Math.random() * 5000) + 1000 %> lượt xem
+									</span>
+									<span class="publish-date">
+										<i class="bi bi-calendar3 me-1"></i>
+										<%= new Date(article.published_date).toLocaleDateString('vi-VN') %>
+									</span>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+				<% }); %>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Most Viewed Articles Section -->
+<section class="most-viewed-section">
+	<div class="container">
+		<div class="section-header text-center mb-5">
+			<h2>Bài Viết Được Xem Nhiều Nhất</h2>
+			<p class="text-gray-600">Top những bài viết có lượt xem cao nhất</p>
+		</div>
+
+		<div class="most-viewed-grid">
+			<div class="row g-4">
+				<% newestArticles.slice(0, 4).forEach((article, index) => { %>
+				<div class="col-lg-6">
+					<div class="most-viewed-card hover-lift animate-fade-in" style="animation-delay: <%= index * 0.15 %>s">
+						<a href="/article/<%= article.article_id %>" class="most-viewed-link">
+							<div class="most-viewed-image">
+								<img src="/img/<%= article.thumbnail %>" alt="<%= article.title %>" />
+								<div class="most-viewed-badge">
+									<i class="bi bi-fire"></i>
+									<span>Hot</span>
+								</div>
+							</div>
+							<div class="most-viewed-content">
+								<div class="category-badge mb-2"><%= article.category_name %></div>
+								<h4 class="most-viewed-title"><%= article.title %></h4>
+								<p class="most-viewed-excerpt"><%= article.summary ? article.summary.substring(0, 100) + '...' : 'Khám phá bài viết chi tiết về chủ đề này.' %></p>
+								<div class="most-viewed-meta">
+									<span class="views">
+										<i class="bi bi-eye me-1"></i>
+										<%= Math.floor(Math.random() * 10000) + 5000 %> lượt xem
+									</span>
+									<span class="publish-date">
+										<i class="bi bi-calendar3 me-1"></i>
+										<%= new Date(article.published_date).toLocaleDateString('vi-VN') %>
+									</span>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+				<% }); %>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Newsletter Section -->
+<section class="newsletter-section bg-gradient-primary text-white py-5">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-lg-6">
+				<div class="newsletter-content">
+					<h3 class="mb-3">Đăng Ký Nhận Tin Tức</h3>
+					<p class="mb-0">Nhận những tin tức mới nhất và độc quyền trực tiếp vào email của bạn</p>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<form class="newsletter-form">
+					<div class="input-group">
+						<input type="email" class="form-control" placeholder="Nhập email của bạn..." required />
+						<button class="btn btn-light" type="submit">
+							<i class="bi bi-send me-2"></i>
+							Đăng ký
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	/* Additional styles for the new homepage design */
+	.hero-section {
+		margin-bottom: var(--space-12);
+	}
+
+	.content-section {
+		margin-bottom: var(--space-12);
+	}
+
+	.most-viewed-section {
+		margin-bottom: var(--space-12);
+	}
+
+	.articles-grid {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-6);
+	}
+
+	.article-item {
+		background-color: var(--white);
+		border-radius: var(--radius-xl);
+		padding: var(--space-6);
+		box-shadow: var(--shadow-sm);
+		transition: all var(--transition-normal);
+		border: 1px solid var(--gray-200);
+	}
+
+	.article-item:hover {
+		box-shadow: var(--shadow-lg);
+		transform: translateY(-2px);
+		border-color: var(--primary-color);
+	}
+
+	/* Enhanced Sidebar Widgets */
+	.sidebar-widget {
+		background-color: var(--white);
+		border-radius: var(--radius-xl);
+		padding: var(--space-6);
+		box-shadow: var(--shadow-sm);
+		border: 1px solid var(--gray-200);
+		transition: all var(--transition-normal);
+		margin-bottom: var(--space-6);
+	}
+
+	.sidebar-widget:hover {
+		box-shadow: var(--shadow-md);
+		transform: translateY(-2px);
+	}
+
+	.widget-header {
+		margin-bottom: var(--space-4);
+		padding-bottom: var(--space-3);
+		border-bottom: 2px solid var(--gray-100);
+	}
+
+	.widget-title {
+		font-size: var(--text-lg);
+		font-weight: var(--font-semibold);
+		color: var(--gray-900);
+		margin: 0;
+		display: flex;
+		align-items: center;
+	}
+
+	.widget-title i {
+		margin-right: var(--space-2);
+	}
+
+	.widget-content {
+		position: relative;
+	}
+
+	/* Enhanced Category Highlights */
+	.category-highlight {
+		border-bottom: 1px solid var(--gray-100);
+		padding-bottom: var(--space-4);
+		margin-bottom: var(--space-4);
+		transition: all var(--transition-fast);
+	}
+
+	.category-highlight:last-child {
+		border-bottom: none;
+		padding-bottom: 0;
+		margin-bottom: 0;
+	}
+
+	.category-highlight:hover {
+		background-color: var(--gray-50);
+		border-radius: var(--radius-lg);
+		padding: var(--space-3);
+		margin: calc(-1 * var(--space-3));
+	}
+
+	.category-header {
+		margin-bottom: var(--space-3);
+	}
+
+	.category-link {
+		text-decoration: none;
+	}
+
+	.category-name {
+		font-size: var(--text-sm);
+		font-weight: var(--font-semibold);
+		color: var(--primary-color);
+		margin: 0;
+		transition: color var(--transition-fast);
+		display: flex;
+		align-items: center;
+	}
+
+	.category-name:hover {
+		color: var(--primary-dark);
+	}
+
+	.category-name i {
+		margin-right: var(--space-2);
+	}
+
+	/* Enhanced Tags Cloud */
+	.tags-cloud {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-2);
+	}
+
+	.tags-cloud .tag-badge {
+		font-size: var(--text-xs);
+		padding: var(--space-1) var(--space-2);
+		background-color: var(--gray-100);
+		color: var(--gray-700);
+		border-radius: var(--radius-full);
+		text-decoration: none;
+		transition: all var(--transition-fast);
+		display: inline-block;
+	}
+
+	.tags-cloud .tag-badge:hover {
+		background-color: var(--primary-color);
+		color: var(--white);
+		transform: scale(1.05);
+		text-decoration: none;
+	}
+
+	/* Enhanced Card Components */
+	.card-img-wrapper {
+		position: relative;
+		overflow: hidden;
+	}
+
+	.card-overlay {
+		position: absolute;
+		top: var(--space-2);
+		right: var(--space-2);
+		background-color: rgba(0, 0, 0, 0.7);
+		color: var(--white);
+		padding: var(--space-1) var(--space-2);
+		border-radius: var(--radius-full);
+		font-size: var(--text-xs);
+		display: flex;
+		align-items: center;
+		gap: var(--space-1);
+	}
+
+	/* Breaking News Ticker */
+	.breaking-news-ticker {
+		background: linear-gradient(135deg, var(--energy-orange), var(--energy-yellow));
+		padding: var(--space-3) 0;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.breaking-news-ticker::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: -100%;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+		animation: shimmer 3s infinite;
+	}
+
+	.ticker-wrapper {
+		display: flex;
+		align-items: center;
+		gap: var(--space-4);
+		position: relative;
+		z-index: 1;
+	}
+
+	.ticker-label {
+		display: flex;
+		align-items: center;
+		gap: var(--space-2);
+		background: rgba(0, 0, 0, 0.2);
+		color: var(--white);
+		padding: var(--space-2) var(--space-3);
+		border-radius: var(--radius-full);
+		font-weight: var(--font-bold);
+		font-size: var(--text-sm);
+		white-space: nowrap;
+	}
+
+	.ticker-content {
+		flex: 1;
+		overflow: hidden;
+	}
+
+	.ticker-items {
+		display: flex;
+		animation: ticker 30s linear infinite;
+	}
+
+	.ticker-item {
+		flex-shrink: 0;
+		margin-right: var(--space-8);
+	}
+
+	.ticker-link {
+		color: var(--white);
+		text-decoration: none;
+		font-weight: var(--font-medium);
+		transition: all var(--transition-fast);
+	}
+
+	.ticker-link:hover {
+		color: var(--white);
+		text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+	}
+
+	@keyframes ticker {
+		0% {
+			transform: translateX(100%);
+		}
+		100% {
+			transform: translateX(-100%);
+		}
+	}
+
+	/* Category Highlights Section */
+	.category-highlights-section {
+		padding: var(--space-12) 0;
+		background: linear-gradient(135deg, var(--gray-50), var(--white));
+	}
+
+	.category-card {
+		background: var(--white);
+		border-radius: var(--radius-xl);
+		padding: var(--space-6);
+		box-shadow: var(--shadow-sm);
+		border: 1px solid var(--gray-200);
+		transition: all var(--transition-normal);
+		height: 100%;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.category-card::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 3px;
+		background: linear-gradient(90deg, var(--energy-orange), var(--energy-purple), var(--energy-teal));
+		background-size: 200% 100%;
+		animation: shimmer 4s ease-in-out infinite;
+	}
+
+	.category-card:hover {
+		box-shadow: var(--shadow-lg);
+		transform: translateY(-4px);
+		border-color: var(--primary-color);
+	}
+
+	.category-card-link {
+		text-decoration: none;
+		color: inherit;
+		display: block;
+		height: 100%;
+	}
+
+	.category-card-icon {
+		width: 60px;
+		height: 60px;
+		background: linear-gradient(135deg, var(--primary-color), var(--energy-purple));
+		border-radius: var(--radius-xl);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: var(--space-4);
+		font-size: var(--text-2xl);
+		color: var(--white);
+		transition: all var(--transition-fast);
+	}
+
+	.category-card:hover .category-card-icon {
+		transform: scale(1.1) rotate(5deg);
+	}
+
+	.category-card-title {
+		font-size: var(--text-lg);
+		font-weight: var(--font-semibold);
+		color: var(--gray-900);
+		margin-bottom: var(--space-2);
+	}
+
+	.category-card-desc {
+		color: var(--gray-600);
+		font-size: var(--text-sm);
+		margin-bottom: var(--space-4);
+		line-height: var(--leading-relaxed);
+	}
+
+	.category-card-meta {
+		display: flex;
+		align-items: center;
+		gap: var(--space-2);
+	}
+
+	.article-count {
+		font-size: var(--text-xs);
+		color: var(--gray-500);
+		font-weight: var(--font-medium);
+	}
+
+	/* Editor's Picks Section */
+	.editors-picks-section {
+		padding: var(--space-12) 0;
+		background: var(--white);
+	}
+
+	.editor-pick-card {
+		background: var(--white);
+		border-radius: var(--radius-xl);
+		overflow: hidden;
+		box-shadow: var(--shadow-sm);
+		border: 1px solid var(--gray-200);
+		transition: all var(--transition-normal);
+		height: 100%;
+	}
+
+	.editor-pick-card:hover {
+		box-shadow: var(--shadow-xl);
+		transform: translateY(-4px);
+	}
+
+	.editor-pick-link {
+		text-decoration: none;
+		color: inherit;
+		display: block;
+		height: 100%;
+	}
+
+	.editor-pick-image {
+		position: relative;
+		height: 200px;
+		overflow: hidden;
+	}
+
+	.editor-pick-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform var(--transition-normal);
+	}
+
+	.editor-pick-card:hover .editor-pick-image img {
+		transform: scale(1.05);
+	}
+
+	.editor-pick-badge {
+		position: absolute;
+		top: var(--space-3);
+		right: var(--space-3);
+		background: linear-gradient(135deg, var(--energy-orange), var(--energy-yellow));
+		color: var(--white);
+		padding: var(--space-1) var(--space-3);
+		border-radius: var(--radius-full);
+		font-size: var(--text-xs);
+		font-weight: var(--font-bold);
+		display: flex;
+		align-items: center;
+		gap: var(--space-1);
+	}
+
+	.editor-pick-content {
+		padding: var(--space-5);
+	}
+
+	.editor-pick-title {
+		font-size: var(--text-lg);
+		font-weight: var(--font-semibold);
+		color: var(--gray-900);
+		margin-bottom: var(--space-3);
+		line-height: var(--leading-tight);
+	}
+
+	.editor-pick-excerpt {
+		color: var(--gray-600);
+		font-size: var(--text-sm);
+		line-height: var(--leading-relaxed);
+		margin-bottom: var(--space-4);
+	}
+
+	.editor-pick-meta {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		font-size: var(--text-xs);
+		color: var(--gray-500);
+	}
+
+	.publish-date,
+	.read-time {
+		display: flex;
+		align-items: center;
+		gap: var(--space-1);
+	}
+
+	/* Enhanced Newsletter Section - CNN Style */
+	.newsletter-section {
+		border-radius: var(--radius-2xl);
+		margin: 0 var(--space-4);
+		background: linear-gradient(135deg, var(--cnn-accent), var(--cnn-accent-light));
+		position: relative;
+		overflow: hidden;
+		border: 1px solid var(--cnn-accent-dark);
+	}
+
+	.newsletter-section::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: -100%;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+		animation: shimmer 6s infinite;
+	}
+
+	.newsletter-content {
+		position: relative;
+		z-index: 1;
+	}
+
+	.newsletter-content h3 {
+		color: var(--white);
+		font-weight: var(--font-bold);
+		font-family: var(--font-family-headline);
+	}
+
+	.newsletter-content p {
+		color: rgba(255, 255, 255, 0.9);
+		font-weight: var(--font-medium);
+	}
+
+	.newsletter-form .input-group {
+		max-width: 400px;
+		margin: 0 auto;
+	}
+
+	.newsletter-form .form-control {
+		border: none;
+		padding: var(--space-4) var(--space-5);
+		border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+	}
+
+	.newsletter-form .btn {
+		border: none;
+		padding: var(--space-4) var(--space-5);
+		font-weight: var(--font-semibold);
+		border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+		background: var(--cnn-accent-dark);
+		color: var(--white);
+		transition: all var(--transition-fast);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.newsletter-form .btn::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: -100%;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+		transition: left 0.5s ease;
+	}
+
+	.newsletter-form .btn:hover {
+		background: var(--cnn-accent);
+		color: var(--white);
+		transform: translateY(-1px);
+		box-shadow: 0 2px 8px rgba(0, 52, 122, 0.3);
+	}
+
+	.newsletter-form .btn:hover::before {
+		left: 100%;
+	}
+
+	/* Enhanced Text Readability - Newspaper Optimized */
+	.text-gray-600 {
+		color: var(--body-text) !important;
+	}
+
+	.text-gray-900 {
+		color: var(--headline) !important;
+	}
+
+	/* Enhanced Visual Hierarchy */
+	.section-header h2 {
+		font-family: var(--font-family-headline);
+		letter-spacing: -0.02em;
+	}
+
+	.section-header p {
+		color: var(--caption);
+		font-size: var(--text-sm);
+	}
+
+	/* Trending Articles Section */
+	.trending-section {
+		margin-bottom: var(--space-12);
+		padding: var(--space-8) 0;
+		background: var(--gray-50);
+	}
+
+	.trending-card {
+		background: var(--white);
+		border-radius: var(--radius-xl);
+		overflow: hidden;
+		box-shadow: var(--shadow-md);
+		transition: all var(--transition-normal);
+		height: 100%;
+	}
+
+	.trending-link {
+		text-decoration: none;
+		color: inherit;
+		display: block;
+		height: 100%;
+	}
+
+	.trending-image {
+		position: relative;
+		height: 200px;
+		overflow: hidden;
+	}
+
+	.trending-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform var(--transition-normal);
+	}
+
+	.trending-rank {
+		position: absolute;
+		top: var(--space-3);
+		right: var(--space-3);
+		background: var(--cnn-accent);
+		color: var(--white);
+		width: 40px;
+		height: 40px;
+		border-radius: var(--radius-full);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-weight: var(--font-bold);
+		font-size: var(--text-sm);
+	}
+
+	.trending-content {
+		padding: var(--space-4);
+	}
+
+	.trending-title {
+		font-size: var(--text-lg);
+		font-weight: var(--font-semibold);
+		margin-bottom: var(--space-2);
+		color: var(--headline);
+		line-height: var(--leading-tight);
+	}
+
+	.trending-meta {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		font-size: var(--text-xs);
+		color: var(--caption);
+	}
+
+	.trending-card:hover .trending-image img {
+		transform: scale(1.05);
+	}
+
+	/* Most Viewed Articles Section */
+	.most-viewed-section {
+		margin-bottom: var(--space-12);
+		padding: var(--space-8) 0;
+	}
+
+	.most-viewed-card {
+		background: var(--white);
+		border-radius: var(--radius-xl);
+		overflow: hidden;
+		box-shadow: var(--shadow-md);
+		transition: all var(--transition-normal);
+		height: 100%;
+	}
+
+	.most-viewed-link {
+		text-decoration: none;
+		color: inherit;
+		display: block;
+		height: 100%;
+	}
+
+	.most-viewed-image {
+		position: relative;
+		height: 250px;
+		overflow: hidden;
+	}
+
+	.most-viewed-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform var(--transition-normal);
+	}
+
+	.most-viewed-badge {
+		position: absolute;
+		top: var(--space-3);
+		left: var(--space-3);
+		background: var(--cnn-accent);
+		color: var(--white);
+		padding: var(--space-1) var(--space-3);
+		border-radius: var(--radius-full);
+		font-size: var(--text-xs);
+		font-weight: var(--font-bold);
+		display: flex;
+		align-items: center;
+		gap: var(--space-1);
+	}
+
+	.most-viewed-content {
+		padding: var(--space-4);
+	}
+
+	.most-viewed-title {
+		font-size: var(--text-xl);
+		font-weight: var(--font-semibold);
+		margin-bottom: var(--space-2);
+		color: var(--headline);
+		line-height: var(--leading-tight);
+	}
+
+	.most-viewed-excerpt {
+		color: var(--body-text);
+		font-size: var(--text-sm);
+		margin-bottom: var(--space-3);
+		line-height: var(--leading-relaxed);
+	}
+
+	.most-viewed-meta {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		font-size: var(--text-xs);
+		color: var(--caption);
+	}
+
+	.most-viewed-card:hover .most-viewed-image img {
+		transform: scale(1.05);
+	}
+
+	/* Responsive adjustments */
+	@media (max-width: 768px) {
+		.newsletter-section {
+			margin: 0;
+			border-radius: 0;
+		}
+
+		.articles-grid .row {
+			--bs-gutter-x: 1rem;
+		}
+
+		.col-6 {
+			flex: 0 0 50%;
+			max-width: 50%;
+		}
+
+		.sidebar-widget {
+			margin-bottom: var(--space-4);
+		}
+
+		/* Breaking News Ticker */
+		.ticker-wrapper {
+			flex-direction: column;
+			gap: var(--space-2);
+		}
+
+		.ticker-label {
+			font-size: var(--text-xs);
+			padding: var(--space-1) var(--space-2);
+		}
+
+		/* Category Cards */
+		.category-card {
+			padding: var(--space-4);
+		}
+
+		.category-card-icon {
+			width: 50px;
+			height: 50px;
+			font-size: var(--text-xl);
+		}
+
+		.category-card-title {
+			font-size: var(--text-base);
+		}
+
+		/* Editor's Picks */
+		.editor-pick-image {
+			height: 150px;
+		}
+
+		.editor-pick-content {
+			padding: var(--space-4);
+		}
+
+		.editor-pick-title {
+			font-size: var(--text-base);
+		}
+	}
+
+	@media (max-width: 480px) {
+		.col-6 {
+			flex: 0 0 100%;
+			max-width: 100%;
+		}
+
+		.newsletter-form .input-group {
+			flex-direction: column;
+		}
+
+		.newsletter-form .btn {
+			border-radius: var(--radius-lg);
+			margin-top: var(--space-3);
+		}
+
+		.widget-title {
+			font-size: var(--text-base);
+		}
+
+		.category-name {
+			font-size: var(--text-xs);
+		}
+	}
+</style>

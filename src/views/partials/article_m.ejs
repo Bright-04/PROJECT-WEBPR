@@ -1,47 +1,247 @@
+<!-- Article Card - Medium Size -->
+<div class="article-card-m">
+	<div class="article-image">
+		<a href="/article/<%= article.article_id %>" class="image-link">
+			<img src="/img/<%= article.thumbnail %>" alt="<%= article.title %>" class="article-thumbnail" />
+			<div class="image-overlay">
+				<i class="bi bi-arrow-right"></i>
+			</div>
+		</a>
+	</div>
+
+	<div class="article-content">
+		<% if (typeof show_cat !== 'undefined' && show_cat) { %>
+		<div class="article-category">
+			<a href="/category/<%= article.category_id %>" class="category-badge">
+				<i class="bi bi-tag me-1"></i>
+				<%= article.category_name %>
+			</a>
+		</div>
+		<% } %>
+
+		<div class="article-title">
+			<a href="/article/<%= article.article_id %>" class="title-link">
+				<h5 class="title-text"><%= article.title %></h5>
+			</a>
+		</div>
+
+		<div class="article-abstract">
+			<p class="abstract-text"><%= article.abstract %></p>
+		</div>
+
+		<div class="article-meta">
+			<div class="meta-info">
+				<span class="meta-item">
+					<i class="bi bi-calendar3 me-1"></i>
+					<%= new Date(article.published_date).toLocaleDateString('vi-VN') %>
+				</span>
+				<span class="meta-item">
+					<i class="bi bi-eye me-1"></i>
+					<%= article.views || 0 %> lượt xem
+				</span>
+			</div>
+		</div>
+
+		<% if (typeof show_tags !== 'undefined' && show_tags && article.tags) { %>
+		<div class="article-tags">
+			<% article.tags.slice(0, 3).forEach(tag => { %>
+			<a href="/homepage/tag?id=<%= tag.tag_id %>" class="tag-badge"> #<%= tag.tag_name %> </a>
+			<% }); %>
+		</div>
+		<% } %>
+	</div>
+</div>
+
 <style>
-	.card-m .category-text {
-		color: gray;
-		font-weight: bold;
+	.article-card-m {
+		background-color: var(--white);
+		border-radius: var(--radius-xl);
+		overflow: hidden;
+		box-shadow: var(--shadow-sm);
+		transition: all var(--transition-normal);
+		border: 1px solid var(--gray-200);
+		height: 100%;
+		display: flex;
+		flex-direction: column;
 	}
-	.card-m .abstract-text,
-	.card-m .title-text {
+
+	.article-card-m:hover {
+		box-shadow: var(--shadow-lg);
+		transform: translateY(-4px);
+		border-color: var(--primary-color);
+	}
+
+	.article-image {
+		position: relative;
+		overflow: hidden;
+		height: 200px;
+	}
+
+	.image-link {
+		display: block;
+		width: 100%;
+		height: 100%;
+		position: relative;
+		text-decoration: none;
+	}
+
+	.article-thumbnail {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform var(--transition-normal);
+	}
+
+	.image-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: linear-gradient(45deg, rgba(37, 99, 235, 0.8), rgba(245, 158, 11, 0.8));
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		opacity: 0;
+		transition: opacity var(--transition-normal);
+	}
+
+	.image-overlay i {
+		color: var(--white);
+		font-size: var(--text-xl);
+		transform: translateX(-10px);
+		transition: transform var(--transition-normal);
+	}
+
+	.article-card-m:hover .article-thumbnail {
+		transform: scale(1.05);
+	}
+
+	.article-card-m:hover .image-overlay {
+		opacity: 1;
+	}
+
+	.article-card-m:hover .image-overlay i {
+		transform: translateX(0);
+	}
+
+	.article-content {
+		padding: var(--space-4);
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.article-category {
+		margin-bottom: var(--space-3);
+	}
+
+	.article-title {
+		margin-bottom: var(--space-3);
+		flex: 1;
+	}
+
+	.title-link {
+		text-decoration: none;
+		color: inherit;
+		transition: color var(--transition-fast);
+	}
+
+	.title-link:hover {
+		color: var(--primary-color);
+	}
+
+	.title-text {
+		font-size: var(--text-base);
+		font-weight: var(--font-semibold);
+		line-height: var(--leading-tight);
+		color: var(--gray-900);
+		margin: 0;
 		display: -webkit-box;
 		-webkit-line-clamp: 2;
-		line-clamp: 2;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
 		text-overflow: ellipsis;
-		max-height: 3.5rem;
 	}
-	.card-m .title-text {
+
+	.article-abstract {
+		margin-bottom: var(--space-3);
+	}
+
+	.abstract-text {
+		color: var(--gray-600);
+		font-size: var(--text-sm);
+		line-height: var(--leading-relaxed);
+		margin: 0;
+		display: -webkit-box;
 		-webkit-line-clamp: 2;
-		line-clamp: 2;
-		padding-bottom: 20px;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
-	.card-m .thumbnail {
-		width: 100%;
-		height: 200px;
-		object-fit: cover;
+
+	.article-meta {
+		margin-bottom: var(--space-3);
+	}
+
+	.meta-info {
+		display: flex;
+		gap: var(--space-3);
+		flex-wrap: wrap;
+	}
+
+	.meta-item {
+		color: var(--gray-500);
+		font-size: var(--text-xs);
+		display: flex;
+		align-items: center;
+	}
+
+	.article-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-1);
+		margin-top: auto;
+	}
+
+	/* Responsive Design */
+	@media (max-width: 768px) {
+		.article-image {
+			height: 150px;
+		}
+
+		.article-content {
+			padding: var(--space-3);
+		}
+
+		.title-text {
+			font-size: var(--text-sm);
+		}
+
+		.abstract-text {
+			font-size: var(--text-xs);
+		}
+	}
+
+	@media (max-width: 480px) {
+		.article-image {
+			height: 120px;
+		}
+
+		.article-content {
+			padding: var(--space-2);
+		}
+
+		.title-text {
+			font-size: var(--text-xs);
+		}
+
+		.abstract-text {
+			font-size: var(--text-xs);
+		}
+
+		.meta-item {
+			font-size: var(--text-xs);
+		}
 	}
 </style>
-
-<div class="card card-m border-0" style="width: <%= width %>">
-	<img src="/img/<%= article.thumbnail %>" class="card-img-top mb-2 thumbnail" alt="<%= article.title %>" />
-	<div class="card-body p-sm-1">
-		<% if (typeof show_cat !== 'undefined' && show_cat) { %>
-		<div class="category-text">
-			<a href="/category/<%= article.category_id %>" class="text-decoration-none text-reset"> <%= article.category_name %> </a>
-		</div>
-		<% } %>
-		<a href="/article/<%= article.article_id %>" class="text-reset title-text">
-			<h5 class="card-title pt-1"><%= article.title %></h5>
-		</a>
-		<div class="text-muted small">
-			<p class="abstract-text"><%= article.abstract %></p>
-			<p><%= new Date(article.published_date).toLocaleDateString('vi-VN') %></p>
-		</div>
-		<% if (typeof show_tags !== 'undefined' && show_tags) { %> <% article.tags.forEach(tag => { %>
-		<a href="/homepage/tag?id=<%= tag.tag_id %>" class="badge badge-info"><%= tag.tag_name %></a>
-		<%}); %> <% } %>
-	</div>
-</div>

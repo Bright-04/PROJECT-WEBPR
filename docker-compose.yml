@@ -1,0 +1,91 @@
+version: "3.8"
+
+services:
+    # MySQL Database
+    mysql:
+        image: mysql:8.0
+        container_name: newspaper_mysql
+        restart: unless-stopped
+        environment:
+            MYSQL_ROOT_PASSWORD: rootpassword
+            MYSQL_DATABASE: onlinenewspaper
+            MYSQL_USER: newspaper_user
+            MYSQL_PASSWORD: newspaper_password
+        ports:
+            - "3306:3306"
+        volumes:
+            - mysql_data:/var/lib/mysql
+            - ./database_query.sql:/docker-entrypoint-initdb.d/init.sql
+            - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+        networks:
+            - newspaper_network
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+
+    # Node.js Application
+    app:
+        build: .
+        container_name: newspaper_app
+        restart: unless-stopped
+        ports:
+            - "3000:3000"
+        environment:
+            - NODE_ENV=development
+            - HOST_NAME=localhost
+            - PORT=3000
+            - DB_HOST=mysql
+            - DB_PORT=3306
+            - DB_USER=newspaper_user
+            - DB_PWD=newspaper_password
+            - DB_NAME=onlinenewspaper
+            - SESSION_SECRET=your_session_secret_here
+            - PASSWORD_ROUND=10
+            - TINY_API_KEY=${TINY_API_KEY:-your_tiny_api_key}
+            - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID:-your_google_client_id}
+            - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET:-your_google_client_secret}
+            - GOOGLE_CALLBACK_URL=${GOOGLE_CALLBACK_URL:-http://localhost:3000/auth/google/callback}
+            - GOOGLE_RECAPTCHA_SITE_KEY=${GOOGLE_RECAPTCHA_SITE_KEY:-your_recaptcha_site_key}
+            - GOOGLE_RECAPTCHA_SECRET_KEY=${GOOGLE_RECAPTCHA_SECRET_KEY:-your_recaptcha_secret_key}
+            - UPLOAD_PATH=/app/uploads
+        volumes:
+            - ./uploads:/app/uploads
+            - ./src/public/img:/app/src/public/img:ro
+        depends_on:
+            mysql:
+                condition: service_healthy
+        networks:
+            - newspaper_network
+        healthcheck:
+            test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/health"]
+            interval: 30s
+            timeout: 10s
+            retries: 3
+
+    # phpMyAdmin (Optional - for database management)
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin:latest
+        container_name: newspaper_phpmyadmin
+        restart: unless-stopped
+        environment:
+            PMA_HOST: mysql
+            PMA_PORT: 3306
+            PMA_USER: root
+            PMA_PASSWORD: rootpassword
+            MYSQL_ROOT_PASSWORD: rootpassword
+        ports:
+            - "8080:80"
+        depends_on:
+            - mysql
+        networks:
+            - newspaper_network
+
+volumes:
+    mysql_data:
+        driver: local
+
+networks:
+    newspaper_network:
+        driver: bridge

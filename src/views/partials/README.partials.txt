@@ -1,1 +1,0 @@
-Trong đây chứa các view được dùng trong nhiều view khác

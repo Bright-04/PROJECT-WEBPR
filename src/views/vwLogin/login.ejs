@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Đăng Nhập - DHLQS NEWS</title>
+		<title>Đăng Nhập - NewsFlow∞</title>
 		<!-- Bootstrap 4.6 -->
 		<link
 			rel="stylesheet"
@@ -18,7 +18,7 @@
 				<div class="col-md-5 bg-white p-4 rounded shadow-sm">
 					<!-- Logo và Tiêu đề -->
 					<div class="text-center mb-4">
-						<img src="/img/logo/logo.png" alt="News Logo" height="60" class="mb-3">
+						<img src="/img/logo/logo.png" alt="NewsFlow∞" height="60" class="mb-3 login-logo" />
 						<h5><strong>Đăng nhập</strong></h5>
 					</div>
 
@@ -72,4 +72,34 @@
 			</div>
 		</div>
 	</body>
+
+	<style>
+		/* Login Logo - Typography Logo */
+		.login-logo {
+			height: 60px;
+			width: auto;
+			max-width: 240px;
+			object-fit: contain;
+			transition: all 0.3s ease;
+		}
+
+		.login-logo:hover {
+			transform: scale(1.02);
+		}
+
+		/* Responsive adjustments */
+		@media (max-width: 768px) {
+			.login-logo {
+				height: 50px;
+				max-width: 200px;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.login-logo {
+				height: 45px;
+				max-width: 180px;
+			}
+		}
+	</style>
 </html>

@@ -1,1 +1,0 @@
-Trong đây chứa các class map với các bảng tương ứng trong DB để lấy dữ liệu lên

@@ -1,56 +1,356 @@
-<footer class="bg-dark text-light mt-5 py-4">
-    <div class="container">
-        <div class="row">
-            <!-- About Us Section -->
-            <div class="col-md-4 mb-4">
-                <h5 class="mb-3">Về Chúng Tôi</h5>
-                <p class="text-muted">
-                    22110052 - Đặng Hữu Lộc<br>
-                    22110065 - Nguyễn Nhật Quang<br>
-                    22110067 - Nguyễn Quang Sáng<br>
-                    22110020 - Hồ Thành Đạt<br>
-                    22110034 - Nguyễn Gia Huy
-                </p>
-            </div>
+<footer class="footer bg-gray-900 text-white">
+	<div class="footer-main">
+		<div class="container">
+			<div class="row g-5">
+				<!-- About Section -->
+				<div class="col-lg-4 col-md-6">
+					<div class="footer-section">
+						<div class="footer-brand mb-4">
+							<img src="/img/logo/logo.png" alt="NewsFlow∞" height="50" class="footer-logo" />
+						</div>
+						<p class="text-gray-400 mb-4">
+							Chúng tôi cam kết mang đến những tin tức chất lượng, chính xác và kịp thời. Đội ngũ phóng viên chuyên nghiệp luôn nỗ lực cập nhật những thông tin mới nhất từ khắp nơi trên
+							thế giới.
+						</p>
+						<div class="social-links">
+							<a href="#" class="social-link" title="Facebook">
+								<i class="bi bi-facebook"></i>
+							</a>
+							<a href="#" class="social-link" title="Twitter">
+								<i class="bi bi-twitter"></i>
+							</a>
+							<a href="#" class="social-link" title="Instagram">
+								<i class="bi bi-instagram"></i>
+							</a>
+							<a href="#" class="social-link" title="YouTube">
+								<i class="bi bi-youtube"></i>
+							</a>
+							<a href="#" class="social-link" title="LinkedIn">
+								<i class="bi bi-linkedin"></i>
+							</a>
+						</div>
+					</div>
+				</div>
 
-            <!-- Quick Links Section -->
-            <div class="col-md-4 mb-4">
-                <h5 class="mb-3">Liên kết nhanh</h5>
-                <ul class="list-unstyled">
-                    <li class="mb-2"><a href="/homepage" class="text-muted text-decoration-none">Trang Chủ</a></li>
-                    <li class="mb-2"><a href="/homepage" class="text-muted text-decoration-none">Danh mục</a></li>
-                    <% if (!locals.user) { %>
-                        <li class="mb-2"><a href="/login" class="text-muted text-decoration-none">Đăng Nhập</a></li>
-                        <li class="mb-2"><a href="/register" class="text-muted text-decoration-none">Đăng Ký</a></li>
-                    <% } else { %>
-                        <li class="mb-2"><a href="/profile" class="text-muted text-decoration-none">Trang Cá Nhân</a></li>
-                        <% if (locals.user.user_role === 'reader') { %>
-                            <li class="mb-2"><a href="/vwProfile/premium" class="text-muted text-decoration-none">Premium</a></li>
-                        <% } %>
-                    <% } %>
-                    <li class="mb-2"><a href="#" class="text-muted text-decoration-none" data-toggle="modal" data-target="#contactModal">Liên Hệ</a></li>
-                </ul>
-            </div>
+				<!-- Quick Links -->
+				<div class="col-lg-2 col-md-6">
+					<div class="footer-section">
+						<h5 class="footer-title mb-4">Liên Kết Nhanh</h5>
+						<ul class="footer-links">
+							<li><a href="/homepage" class="footer-link">Trang Chủ</a></li>
+							<li><a href="/homepage/list" class="footer-link">Tất Cả Tin Tức</a></li>
+							<li><a href="/homepage" class="footer-link">Danh Mục</a></li>
+							<li><a href="#" class="footer-link">Về Chúng Tôi</a></li>
+							<li><a href="#" class="footer-link">Liên Hệ</a></li>
+							<li><a href="#" class="footer-link">Chính Sách</a></li>
+						</ul>
+					</div>
+				</div>
 
-            <!-- Contact Info Section -->
-            <div class="col-md-4 mb-4">
-                <h5 class="mb-3">Kết nối với chúng tôi ngay</h5>
-                <div class="d-flex gap-3 mb-3">
-                    <a href="https://github.com/HLoc26/PROJECT-WEBPR" class="text-light"><i class="bi bi-github fs-4"></i></a>
-                </div>
-                <p class="text-muted mb-1"><i class="bi bi-envelope-fill me-2"></i> cbl.nguyennhatquang2809@gmail.com</p>
-                <p class="text-muted mb-1"><i class="bi bi-telephone-fill me-2"></i> +84 972 947 081</p>
-            </div>
-        </div>
+				<!-- Categories -->
+				<div class="col-lg-2 col-md-6">
+					<div class="footer-section">
+						<h5 class="footer-title mb-4">Danh Mục</h5>
+						<ul class="footer-links">
+							<li><a href="/homepage/cate?id=1" class="footer-link">Thời Sự</a></li>
+							<li><a href="/homepage/cate?id=2" class="footer-link">Kinh Tế</a></li>
+							<li><a href="/homepage/cate?id=3" class="footer-link">Công Nghệ</a></li>
+							<li><a href="/homepage/cate?id=4" class="footer-link">Thể Thao</a></li>
+							<li><a href="/homepage/cate?id=5" class="footer-link">Giải Trí</a></li>
+							<li><a href="/homepage/cate?id=6" class="footer-link">Sức Khỏe</a></li>
+						</ul>
+					</div>
+				</div>
 
-        <!-- Copyright Section -->
-        <div class="row mt-3">
-            <div class="col-12">
-                <hr class="bg-secondary">
-                <p class="text-center text-muted mb-0">
-                    © <%= new Date().getFullYear() %> DHLQS News - Cổng tin tức thế giới. All Right Reserved.
-                </p>
-            </div>
-        </div>
-    </div>
+				<!-- User Account -->
+				<div class="col-lg-2 col-md-6">
+					<div class="footer-section">
+						<h5 class="footer-title mb-4">Tài Khoản</h5>
+						<ul class="footer-links">
+							<% if (!locals.user) { %>
+							<li><a href="/login" class="footer-link">Đăng Nhập</a></li>
+							<li><a href="/register" class="footer-link">Đăng Ký</a></li>
+							<% } else { %>
+							<li><a href="/profile" class="footer-link">Hồ Sơ Cá Nhân</a></li>
+							<% if (locals.user.user_role === 'reader') { %>
+							<li><a href="/vwProfile/premium" class="footer-link">Premium</a></li>
+							<% } %>
+							<li><a href="/logout" class="footer-link">Đăng Xuất</a></li>
+							<% } %>
+						</ul>
+					</div>
+				</div>
+
+				<!-- Contact Info -->
+				<div class="col-lg-2 col-md-6">
+					<div class="footer-section">
+						<h5 class="footer-title mb-4">Liên Hệ</h5>
+						<div class="contact-info">
+							<div class="contact-item mb-3">
+								<i class="bi bi-envelope-fill me-2 text-primary"></i>
+								<a href="mailto:cbl.nguyennhatquang2809@gmail.com" class="footer-link"> cbl.nguyennhatquang2809@gmail.com </a>
+							</div>
+							<div class="contact-item mb-3">
+								<i class="bi bi-telephone-fill me-2 text-primary"></i>
+								<a href="tel:+84972947081" class="footer-link">+84 972 947 081</a>
+							</div>
+							<div class="contact-item mb-3">
+								<i class="bi bi-geo-alt-fill me-2 text-primary"></i>
+								<span class="text-gray-400">TP. Hồ Chí Minh, Việt Nam</span>
+							</div>
+							<div class="contact-item">
+								<i class="bi bi-github me-2 text-primary"></i>
+								<a href="https://github.com/HLoc26/PROJECT-WEBPR" class="footer-link" target="_blank"> GitHub Repository </a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Footer Bottom -->
+	<div class="footer-bottom">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-md-6">
+					<div class="team-info">
+						<p class="text-gray-400 mb-0">
+							<strong>Đội ngũ phát triển:</strong>
+							22110052 - Đặng Hữu Lộc | 22110065 - Nguyễn Nhật Quang | 22110067 - Nguyễn Quang Sáng | 22110020 - Hồ Thành Đạt | 22110034 - Nguyễn Gia Huy
+						</p>
+					</div>
+				</div>
+				<div class="col-md-6 text-md-end">
+					<p class="text-gray-400 mb-0">© <%= new Date().getFullYear() %> NewsFlow∞. All Rights Reserved.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Back to Top Button -->
+	<button id="backToTop" class="back-to-top" title="Lên đầu trang">
+		<i class="bi bi-arrow-up"></i>
+	</button>
 </footer>
+
+<style>
+	/* Footer Styles - CNN Style Formal Theme */
+	.footer {
+		position: relative;
+		margin-top: auto;
+		background: var(--cnn-gray);
+		overflow: hidden;
+		border-top: 3px solid var(--cnn-accent);
+	}
+
+	.footer::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 1px;
+		background: var(--cnn-border);
+	}
+
+	.footer-main {
+		padding: var(--space-6) 0 var(--space-4);
+		position: relative;
+		z-index: 1;
+	}
+
+	.footer-section {
+		height: 100%;
+	}
+
+	.footer-brand {
+		display: flex;
+		align-items: center;
+		transition: transform var(--transition-fast);
+	}
+
+	.footer-brand:hover {
+		transform: scale(1.02);
+	}
+
+	.footer-title {
+		font-size: var(--text-lg);
+		font-weight: var(--font-semibold);
+		color: var(--white);
+		position: relative;
+		padding-bottom: var(--space-3);
+		font-family: var(--font-family-headline);
+		letter-spacing: -0.01em;
+	}
+
+	.footer-title::after {
+		content: "";
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 40px;
+		height: 3px;
+		background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+		border-radius: var(--radius-full);
+		animation: shimmer 3s ease-in-out infinite;
+	}
+
+	.footer-links {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.footer-links li {
+		margin-bottom: var(--space-2);
+	}
+
+	.footer-link {
+		color: var(--gray-400);
+		text-decoration: none;
+		transition: all var(--transition-fast);
+		display: inline-block;
+		position: relative;
+	}
+
+	.footer-link:hover {
+		color: var(--primary-color);
+		transform: translateX(4px);
+	}
+
+	.footer-link::before {
+		content: "";
+		position: absolute;
+		bottom: -2px;
+		left: 0;
+		width: 0;
+		height: 1px;
+		background-color: var(--primary-color);
+		transition: width var(--transition-fast);
+	}
+
+	.footer-link:hover::before {
+		width: 100%;
+	}
+
+	.social-links {
+		display: flex;
+		gap: var(--space-3);
+	}
+
+	.social-link {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 40px;
+		height: 40px;
+		background: var(--cnn-light-gray);
+		color: var(--white);
+		border-radius: var(--radius-md);
+		text-decoration: none;
+		transition: all var(--transition-fast);
+		font-size: var(--text-base);
+		position: relative;
+		overflow: hidden;
+		border: 1px solid var(--cnn-border);
+	}
+
+	.social-link:hover {
+		background: var(--cnn-accent);
+		color: var(--white);
+		transform: translateY(-2px);
+		border-color: var(--cnn-accent);
+	}
+
+	.contact-info {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-3);
+	}
+
+	.contact-item {
+		display: flex;
+		align-items: center;
+		font-size: var(--text-sm);
+	}
+
+	.contact-item i {
+		flex-shrink: 0;
+		width: 20px;
+	}
+
+	.footer-bottom {
+		padding: var(--space-3) 0;
+		border-top: 1px solid var(--cnn-border);
+		background: var(--cnn-accent-dark);
+	}
+
+	.team-info p {
+		font-size: var(--text-xs);
+		line-height: var(--leading-relaxed);
+	}
+
+	/* Back to Top Button - Removed duplicate styles (handled in reader.main.css) */
+
+	/* Responsive Design */
+	@media (max-width: 768px) {
+		.footer-main {
+			padding: var(--space-4) 0 var(--space-3);
+		}
+
+		.footer-section {
+			margin-bottom: var(--space-6);
+		}
+
+		.footer-bottom {
+			text-align: center;
+		}
+
+		.team-info p {
+			font-size: var(--text-xs);
+		}
+
+		/* Back to Top Button responsive styles handled in reader.main.css */
+	}
+
+	@media (max-width: 480px) {
+		.footer-brand {
+			flex-direction: column;
+			text-align: center;
+			gap: var(--space-3);
+		}
+
+		.social-links {
+			justify-content: center;
+		}
+
+		.contact-item {
+			font-size: var(--text-xs);
+		}
+	}
+</style>
+
+<script>
+	// Back to Top functionality
+	document.addEventListener("DOMContentLoaded", function () {
+		const backToTopButton = document.getElementById("backToTop");
+
+		// Show/hide button based on scroll position
+		window.addEventListener("scroll", function () {
+			if (window.pageYOffset > 300) {
+				backToTopButton.classList.add("show");
+			} else {
+				backToTopButton.classList.remove("show");
+			}
+		});
+
+		// Smooth scroll to top when clicked
+		backToTopButton.addEventListener("click", function () {
+			window.scrollTo({
+				top: 0,
+				behavior: "smooth",
+			});
+		});
+	});
+</script>
