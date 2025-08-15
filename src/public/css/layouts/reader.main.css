@@ -386,12 +386,9 @@
 		padding: var(--space-3) 0;
 	}
 	
-	.navbar-brand h4 {
-		font-size: var(--text-lg);
-	}
-	
-	.navbar-brand small {
-		font-size: var(--text-xs);
+	.navbar-logo {
+		height: 40px;
+		max-width: 160px;
 	}
 	
 	.input-group {
@@ -519,12 +516,9 @@
 
 @media (max-width: 480px) {
 	/* Extra Small Devices */
-	.navbar-brand h4 {
-		font-size: var(--text-base);
-	}
-	
-	.navbar-brand small {
-		font-size: var(--text-xs);
+	.navbar-logo {
+		height: 35px;
+		max-width: 140px;
 	}
 	
 	.input-group .form-control {
@@ -585,13 +579,9 @@
 
 @media (max-width: 360px) {
 	/* Very Small Devices */
-	.navbar-brand {
-		flex-direction: column;
-		text-align: center;
-	}
-	
-	.navbar-brand img {
-		margin-bottom: var(--space-1);
+	.navbar-logo {
+		height: 30px;
+		max-width: 120px;
 	}
 	
 	.category-nav .nav-link {
@@ -669,6 +659,38 @@
 		padding: var(--space-2);
 		font-size: var(--text-xs);
 	}
+}
+
+/* ========================================
+   LOGO STYLES - TYPOGRAPHY LOGO
+   ======================================== */
+
+/* Navbar Logo - Typography Logo */
+.navbar-logo {
+	height: 50px;
+	width: auto;
+	max-width: 200px;
+	object-fit: contain;
+	transition: all var(--transition-fast);
+}
+
+.navbar-logo:hover {
+	transform: scale(1.02);
+}
+
+/* Footer Logo - Typography Logo */
+.footer-logo {
+	height: 50px;
+	width: auto;
+	max-width: 180px;
+	object-fit: contain;
+	filter: brightness(0) invert(1); /* Make logo white for dark footer */
+	transition: all var(--transition-fast);
+}
+
+.footer-logo:hover {
+	transform: scale(1.02);
+	filter: brightness(0) invert(1) drop-shadow(0 2px 4px rgba(255, 255, 255, 0.3));
 }
 
 /* ========================================

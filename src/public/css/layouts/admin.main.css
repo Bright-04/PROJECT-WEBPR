@@ -45,6 +45,20 @@
 .sidebar-brand {
 	display: flex;
 	align-items: center;
+	gap: var(--space-3);
+}
+
+/* Admin Sidebar Logo - Typography Logo */
+.sidebar-logo {
+	height: 40px;
+	width: auto;
+	max-width: 160px;
+	object-fit: contain;
+	transition: all var(--transition-fast);
+}
+
+.sidebar-logo:hover {
+	transform: scale(1.02);
 }
 
 .sidebar-close {
