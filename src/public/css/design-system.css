@@ -4,43 +4,43 @@
 
 :root {
 	/* Newspaper Color Palette - Professional & Age-Appropriate */
-	--primary-color: #1e40af; /* Deep Blue - Trustworthy, Professional */
-	--primary-dark: #1e3a8a; /* Darker Blue - Authority */
-	--primary-light: #3b82f6; /* Lighter Blue - Friendly */
-	--secondary-color: #6b7280; /* Warm Gray - Neutral, Readable */
-	--accent-color: #ea580c; /* Orange - Attention, Energy */
-	--accent-light: #fb923c; /* Light Orange - Friendly */
-	--success-color: #059669; /* Green - Positive */
-	--warning-color: #d97706; /* Amber - Caution */
-	--danger-color: #dc2626; /* Red - Important */
-	--info-color: #0891b2; /* Cyan - Informative */
+	--primary-color: #004aad; /* Logo Blue - Trustworthy, Professional */
+	--primary-dark: #003d8f; /* Darker Blue - Authority */
+	--primary-light: #0056cc; /* Lighter Blue - Friendly */
+	--secondary-color: #2c3e50; /* Dark Blue-Gray - Neutral, Readable */
+	--accent-color: #e67e22; /* Orange - Attention, Energy */
+	--accent-light: #f39c12; /* Light Orange - Friendly */
+	--success-color: #27ae60; /* Green - Positive */
+	--warning-color: #f39c12; /* Amber - Caution */
+	--danger-color: #e74c3c; /* Red - Important */
+	--info-color: #3498db; /* Blue - Informative */
 
 	/* Enhanced Neutral Colors for Better Readability */
 	--white: #ffffff;
-	--gray-25: #fcfcfc; /* Very Light Gray */
-	--gray-50: #f9fafb; /* Light Background */
-	--gray-100: #f3f4f6; /* Subtle Background */
-	--gray-200: #e5e7eb; /* Borders */
-	--gray-300: #d1d5db; /* Light Text */
-	--gray-400: #9ca3af; /* Muted Text */
-	--gray-500: #6b7280; /* Secondary Text */
-	--gray-600: #4b5563; /* Body Text */
-	--gray-700: #374151; /* Strong Text */
-	--gray-800: #1f2937; /* Headings */
-	--gray-900: #111827; /* Primary Text */
+	--gray-25: #fefefe; /* Very Light Gray */
+	--gray-50: #f8f9fa; /* Light Background */
+	--gray-100: #f1f3f4; /* Subtle Background */
+	--gray-200: #e8eaed; /* Borders */
+	--gray-300: #dadce0; /* Light Text */
+	--gray-400: #9aa0a6; /* Muted Text */
+	--gray-500: #5f6368; /* Secondary Text */
+	--gray-600: #3c4043; /* Body Text */
+	--gray-700: #202124; /* Strong Text */
+	--gray-800: #1a1a1a; /* Headings */
+	--gray-900: #0f0f0f; /* Primary Text */
 	--black: #000000;
 
 	/* Newspaper-Specific Colors */
-	--newsprint: #fafafa; /* Paper-like background */
-	--headline: #1f2937; /* Article headlines */
-	--body-text: #374151; /* Article body text */
-	--caption: #6b7280; /* Image captions */
-	--byline: #4b5563; /* Author bylines */
+	--newsprint: #fefefe; /* Paper-like background */
+	--headline: #1a1a1a; /* Article headlines */
+	--body-text: #3c4043; /* Article body text */
+	--caption: #5f6368; /* Image captions */
+	--byline: #5f6368; /* Author bylines */
 
 	/* Typography - Optimized for Newspaper Readability */
 	--font-family-primary: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
 	--font-family-secondary: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
-	--font-family-headline: "Merriweather", "Georgia", "Times New Roman", serif;
+	--font-family-headline: "Playfair Display", "Merriweather", "Georgia", "Times New Roman", serif;
 	--font-family-mono: "JetBrains Mono", "Fira Code", "Consolas", "Monaco", monospace;
 
 	/* Font Sizes */
@@ -596,7 +596,7 @@ a:hover {
 .form-control:focus {
 	outline: none;
 	border-color: var(--primary-color);
-	box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+	box-shadow: 0 0 0 4px rgba(0, 74, 173, 0.1);
 	background-color: var(--white);
 	transform: translateY(-1px);
 	color: var(--headline);
