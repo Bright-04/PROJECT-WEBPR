@@ -135,12 +135,13 @@
 </footer>
 
 <style>
-	/* Footer Styles - Enhanced Newspaper Theme */
+	/* Footer Styles - CNN Style Formal Theme */
 	.footer {
 		position: relative;
 		margin-top: auto;
-		background: linear-gradient(135deg, var(--gray-900), var(--gray-800));
+		background: var(--cnn-gray);
 		overflow: hidden;
+		border-top: 3px solid var(--cnn-accent);
 	}
 
 	.footer::before {
@@ -149,10 +150,8 @@
 		top: 0;
 		left: 0;
 		right: 0;
-		height: 3px;
-		background: linear-gradient(90deg, var(--primary-color), var(--accent-color), var(--primary-color));
-		background-size: 200% 100%;
-		animation: shimmer 4s ease-in-out infinite;
+		height: 1px;
+		background: var(--cnn-border);
 	}
 
 	.footer-main {
@@ -244,39 +243,24 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 44px;
-		height: 44px;
-		background: linear-gradient(135deg, var(--gray-800), var(--gray-700));
-		color: var(--gray-400);
-		border-radius: var(--radius-full);
+		width: 40px;
+		height: 40px;
+		background: var(--cnn-light-gray);
+		color: var(--white);
+		border-radius: var(--radius-md);
 		text-decoration: none;
 		transition: all var(--transition-fast);
-		font-size: var(--text-lg);
+		font-size: var(--text-base);
 		position: relative;
 		overflow: hidden;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-	}
-
-	.social-link::before {
-		content: "";
-		position: absolute;
-		top: 0;
-		left: -100%;
-		width: 100%;
-		height: 100%;
-		background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-		transition: left var(--transition-normal);
+		border: 1px solid var(--cnn-border);
 	}
 
 	.social-link:hover {
-		background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+		background: var(--cnn-accent);
 		color: var(--white);
-		transform: translateY(-3px) scale(1.1);
-		box-shadow: 0 6px 20px rgba(0, 74, 173, 0.4);
-	}
-
-	.social-link:hover::before {
-		left: 100%;
+		transform: translateY(-2px);
+		border-color: var(--cnn-accent);
 	}
 
 	.contact-info {
@@ -298,8 +282,8 @@
 
 	.footer-bottom {
 		padding: var(--space-6) 0;
-		border-top: 1px solid var(--gray-800);
-		background-color: var(--gray-950);
+		border-top: 1px solid var(--cnn-border);
+		background: var(--cnn-accent-dark);
 	}
 
 	.team-info p {
@@ -307,41 +291,30 @@
 		line-height: var(--leading-relaxed);
 	}
 
-	/* Back to Top Button - Enhanced */
+	/* Back to Top Button - CNN Style */
 	.back-to-top {
 		position: fixed;
 		bottom: var(--space-6);
 		right: var(--space-6);
-		width: 56px;
-		height: 56px;
-		background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+		width: 50px;
+		height: 50px;
+		background: var(--cnn-accent);
 		color: var(--white);
 		border: none;
-		border-radius: var(--radius-full);
+		border-radius: var(--radius-md);
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		font-size: var(--text-lg);
+		font-size: var(--text-base);
 		cursor: pointer;
 		transition: all var(--transition-normal);
 		opacity: 0;
 		visibility: hidden;
 		transform: translateY(20px) scale(0.8);
 		z-index: var(--z-fixed);
-		box-shadow: 0 4px 20px rgba(0, 74, 173, 0.3);
+		box-shadow: 0 2px 10px rgba(0, 52, 122, 0.3);
 		position: relative;
 		overflow: hidden;
-	}
-
-	.back-to-top::before {
-		content: "";
-		position: absolute;
-		top: 0;
-		left: -100%;
-		width: 100%;
-		height: 100%;
-		background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-		transition: left var(--transition-normal);
 	}
 
 	.back-to-top.show {
@@ -351,13 +324,9 @@
 	}
 
 	.back-to-top:hover {
-		background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
-		transform: translateY(-3px) scale(1.1);
-		box-shadow: 0 8px 30px rgba(0, 74, 173, 0.5);
-	}
-
-	.back-to-top:hover::before {
-		left: 100%;
+		background: var(--cnn-accent-dark);
+		transform: translateY(-2px);
+		box-shadow: 0 4px 15px rgba(0, 52, 122, 0.4);
 	}
 
 	/* Responsive Design */

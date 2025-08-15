@@ -37,6 +37,17 @@
 	--caption: #5f6368; /* Image captions */
 	--byline: #5f6368; /* Author bylines */
 
+	/* CNN-Style Formal Colors - Professional News Aesthetic */
+	--cnn-red: #cc0000; /* CNN's signature red - formal and authoritative */
+	--cnn-dark-red: #990000; /* Darker red for hover states */
+	--cnn-gray: #333333; /* Dark gray for text and borders */
+	--cnn-light-gray: #666666; /* Medium gray for secondary text */
+	--cnn-bg-gray: #f8f8f8; /* Light background gray */
+	--cnn-border: #e0e0e0; /* Border color */
+	--cnn-accent: #00347a; /* Logo blue - primary brand color */
+	--cnn-accent-light: #004aad; /* Lighter blue for subtle highlights */
+	--cnn-accent-dark: #002855; /* Darker blue for hover states */
+
 	/* Typography - Optimized for Newspaper Readability */
 	--font-family-primary: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
 	--font-family-secondary: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;

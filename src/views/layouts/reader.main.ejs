@@ -50,17 +50,41 @@
 		<div class="main-content-wrapper">
 			<!-- Header -->
 			<header class="header">
-				<!-- Top Bar -->
+				<!-- Top Bar with Breaking News -->
 				<div class="top-bar bg-gray-900 text-white py-2">
 					<div class="container">
 						<div class="row align-items-center">
-							<div class="col-md-6">
+							<div class="col-md-4">
 								<div class="d-flex align-items-center">
 									<i class="bi bi-clock me-2"></i>
 									<small>Cập nhật lần cuối: <%= new Date().toLocaleDateString('vi-VN') %></small>
 								</div>
 							</div>
-							<div class="col-md-6 text-end">
+							<div class="col-md-4">
+								<!-- Breaking News Ticker - Integrated -->
+								<div class="breaking-news-ticker-integrated">
+									<div class="ticker-wrapper">
+										<div class="ticker-label">
+											<i class="bi bi-lightning-fill"></i>
+											<span>BREAKING NEWS</span>
+										</div>
+										<div class="ticker-content">
+											<div class="ticker-items">
+												<div class="ticker-item">
+													<a href="#" class="ticker-link">Cập nhật tin tức mới nhất về tình hình kinh tế thế giới</a>
+												</div>
+												<div class="ticker-item">
+													<a href="#" class="ticker-link">Thông tin mới về các sự kiện thể thao quan trọng</a>
+												</div>
+												<div class="ticker-item">
+													<a href="#" class="ticker-link">Tin tức công nghệ mới nhất và xu hướng phát triển</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4 text-end">
 								<div class="d-flex align-items-center justify-content-end">
 									<a href="#" class="text-white me-3"><i class="bi bi-facebook"></i></a>
 									<a href="#" class="text-white me-3"><i class="bi bi-twitter"></i></a>
@@ -204,6 +228,25 @@
 				document.querySelectorAll(".card, .section").forEach((el) => {
 					observer.observe(el);
 				});
+
+				// Back to Top Button Functionality
+				const backToTopButton = document.getElementById("backToTop");
+				if (backToTopButton) {
+					window.addEventListener("scroll", function () {
+						if (window.pageYOffset > 300) {
+							backToTopButton.classList.add("show");
+						} else {
+							backToTopButton.classList.remove("show");
+						}
+					});
+
+					backToTopButton.addEventListener("click", function () {
+						window.scrollTo({
+							top: 0,
+							behavior: "smooth",
+						});
+					});
+				}
 			});
 
 			// Header scroll effect
